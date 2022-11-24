@@ -1,10 +1,10 @@
-package milk.example.platform;
+package example.milk.platform.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ServicePlatformServerApplicationTests {
+class ServerApplicationTests {
 
 	@Test
 	void contextLoads() {
