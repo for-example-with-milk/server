@@ -16,6 +16,7 @@ public class TestController {
         Optional<Test> result = testRepository.findById(1);
         if (result.isPresent()) {
             Test test = result.get();
+            System.out.println("response success!");
             return test.getStr();
         }
         return "Failed";
