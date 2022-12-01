@@ -1,5 +1,7 @@
 package example.milk.platform.server.account;
 
+import example.milk.platform.server.entity.account.ServiceProvider;
+import example.milk.platform.server.entity.account.ServiceUser;
 import example.milk.platform.server.packet.requestbody.LoginRequestBody;
 import example.milk.platform.server.packet.responsebody.LoginResponseBody;
 import example.milk.platform.server.repository.AccountRepository;
@@ -38,14 +40,17 @@ public class AccountManager {
 
     public LoginResponseBody login(LoginRequestBody request) {
         try {
-            boolean match = accountRepository.matchAccount(request.getId(), request.getPw());
-            if (!match)
-                return new LoginResponseBody(1, "존재하지 않는 계정이거나 비밀번호가 틀렸습니다.", "");
+            ServiceUser user = accountRepository.matchAccountUser(request.getId(), request.getPw());
+            ServiceProvider provider = accountRepository.matchAccountProvider(request.getId(), request.getPw());
+
+            if (user != null)
+                return new LoginResponseBody(0, "", request.getId(), user.getName(), true);
+            if (provider != null)
+                return new LoginResponseBody(0, "", request.getId(), provider.getName(), false);
+            return new LoginResponseBody(1, "존재하지 않는 계정이거나 비밀번호가 틀렸습니다.", "", "", false);
         }
         catch (Exception e) {
-            return new LoginResponseBody(2, "로그인에 실패했습니다.", "");
+            return new LoginResponseBody(2, "로그인에 실패했습니다.", "", "", false);
         }
-
-        return new LoginResponseBody(0, "", request.getId());
     }
 }
