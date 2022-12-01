@@ -1,6 +1,6 @@
 package example.milk.platform.server.service;
 
-import example.milk.platform.server.repository.MysqlServiceRepository;
+import example.milk.platform.server.repository.ServiceRepository;
 import lombok.RequiredArgsConstructor;
 
 
@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class ServiceManager {
-    private final MysqlServiceRepository mysqlServiceRepository;
+    private final ServiceRepository mysqlServiceRepository;
     public void createService(Service service){
         mysqlServiceRepository.save(service);
     }
