@@ -45,4 +45,17 @@ public class Service {
         this.account = account;
         this.subServiceList = subServiceList;
     }
+
+    public SubService getSubService(Long id) {
+        for (SubService subService : subServiceList) {
+            if (subService.getId() == id)
+                return subService;
+        }
+
+        return null;
+    }
+
+    public List<SubService> getSubServiceList() {
+        return this.subServiceList;
+    }
 }
