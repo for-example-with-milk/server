@@ -19,7 +19,7 @@ public class ServiceUser extends User {
 
     public example.milk.platform.server.entity.account.ServiceUser toEntity() {
         return new example.milk.platform.server.entity.account.ServiceUser(
-                id, pw, name, phone_num, address, age, gender, tagList
+                id, pw, name, phoneNum, address, age, gender, tagList
         );
     }
 }

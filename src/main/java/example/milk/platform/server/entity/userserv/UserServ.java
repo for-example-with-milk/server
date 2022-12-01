@@ -1,6 +1,7 @@
 package example.milk.platform.server.entity.userserv;
 
 import example.milk.platform.server.entity.account.User;
+import example.milk.platform.server.entity.service.Service;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -15,9 +16,9 @@ public class UserServ {
     @GeneratedValue
     private long id;
 
-/*    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "serv_id")
-    private Serv serv;*/
+    private Service service;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
