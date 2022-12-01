@@ -38,4 +38,8 @@ public class UserService {
         this.progress = newState;
         return 1;
     }
+
+    public Chat getChat(long id) {
+        return this.chat;
+    }
 }
