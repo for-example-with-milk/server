@@ -4,12 +4,14 @@ import example.milk.platform.server.account.ServiceProvider;
 import example.milk.platform.server.account.ServiceUser;
 import example.milk.platform.server.packet.requestbody.SignUpProvRequestBody;
 import example.milk.platform.server.packet.requestbody.SignUpUserRequestBody;
+import example.milk.platform.server.packet.responsebody.GetNameResponseBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -31,8 +33,7 @@ public class AccountRepository {
 
         try {
             em.persist(user);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
         return true;
@@ -43,8 +44,7 @@ public class AccountRepository {
 
         try {
             em.persist(provider);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
         return true;
@@ -72,5 +72,17 @@ public class AccountRepository {
         if (result.size() == 0)
             return null;
         return result.get(0);
+    }
+
+    public String getNameById(String id) {
+        TypedQuery<String> query = em.createQuery(
+                "select name from ServiceUser where id = :parm", String.class);
+        query.setParameter("parm", id);
+
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

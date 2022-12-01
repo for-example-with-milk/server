@@ -1,7 +1,9 @@
 package example.milk.platform.server.account;
 
+import example.milk.platform.server.packet.requestbody.GetNameRequestBody;
 import example.milk.platform.server.packet.requestbody.LoginRequestBody;
 import example.milk.platform.server.packet.requestbody.SignUpProvRequestBody;
+import example.milk.platform.server.packet.responsebody.GetNameResponseBody;
 import example.milk.platform.server.packet.responsebody.LoginResponseBody;
 import example.milk.platform.server.repository.AccountRepository;
 import example.milk.platform.server.packet.requestbody.SignUpUserRequestBody;
@@ -29,8 +31,7 @@ public class AccountManager {
                 return new SignUpResponseBody(1, "비밀번호 확인이 틀렸습니다.");
             if (!accountRepository.signUpUser(request))
                 return new SignUpResponseBody(2, "회원가입에 실패했습니다.");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new SignUpResponseBody(2, "회원가입에 실패했습니다.");
         }
 
@@ -47,8 +48,7 @@ public class AccountManager {
                 return new SignUpResponseBody(1, "비밀번호 확인이 틀렸습니다.");
             if (!accountRepository.signUpProvider(request))
                 return new SignUpResponseBody(2, "회원가입에 실패했습니다.");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new SignUpResponseBody(2, "회원가입에 실패했습니다.");
         }
 
@@ -65,9 +65,17 @@ public class AccountManager {
             if (provider != null)
                 return new LoginResponseBody(0, "", request.getId(), provider.getName(), false);
             return new LoginResponseBody(1, "존재하지 않는 계정이거나 비밀번호가 틀렸습니다.", "", "", false);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new LoginResponseBody(2, "로그인에 실패했습니다.", "", "", false);
         }
+    }
+
+    public GetNameResponseBody getName(GetNameRequestBody request) {
+        String name = accountRepository.getNameById(request.getId());
+
+        if (name == null)
+            return new GetNameResponseBody(1, "존재하지 않는 계정입니다.", "");
+
+        return new GetNameResponseBody(0, "", name);
     }
 }
