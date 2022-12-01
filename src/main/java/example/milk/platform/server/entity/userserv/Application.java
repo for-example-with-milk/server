@@ -18,8 +18,8 @@ public class Application {
     @Column(name = "user_serv_id")
     private long userServId;
 
-    @Column(name = "subserv_name")
-    private String subservName;
+    @Column(name = "subservice_name")
+    private String subserviceName;
 
     @Column(name = "time")
     private LocalDateTime time;
