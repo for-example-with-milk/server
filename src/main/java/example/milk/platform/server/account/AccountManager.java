@@ -1,6 +1,6 @@
 package example.milk.platform.server.account;
 
-import example.milk.platform.server.acountRepository.AccountRepository;
+import example.milk.platform.server.repository.AccountRepository;
 import example.milk.platform.server.packet.requestbody.SignUpUserRequestBody;
 import example.milk.platform.server.packet.responsebody.SignUpResponseBody;
 import lombok.Getter;

@@ -1,13 +1,10 @@
 package example.milk.platform.server.controller;
 
 import example.milk.platform.server.account.AccountManager;
-import example.milk.platform.server.account.ServiceProvider;
-import example.milk.platform.server.account.ServiceUser;
 import example.milk.platform.server.packet.requestbody.SignUpProvRequestBody;
 import example.milk.platform.server.packet.requestbody.SignUpUserRequestBody;
 import example.milk.platform.server.packet.responsebody.SignUpResponseBody;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

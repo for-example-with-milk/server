@@ -1,35 +1,25 @@
 package example.milk.platform.server.account;
 
 import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
-
-@Entity
-@Getter
-@DiscriminatorValue("user")
-public class ServiceUser extends User{
-
-    @Column(name = "address")
+public class ServiceUser extends User {
     private String address;
-
-    @Column(name = "age")
     private short age;
-
-    @Column(name = "gender")
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-
-    @Column(name = "tag_list")
+    private String gender;
     private String tagList;
 
-    protected ServiceUser() {}
-
-    public ServiceUser(String id, String pw, String name, String phone, String addr, short age, String gender, String tagList) {
+    public ServiceUser(String id, String pw, String name, String phone, String address, short age, String gender, String tagList) {
         super(id, pw, name, phone);
-
-        this.address = addr;
-        this.age = age;
-        this.gender = Gender.valueOf(gender);
+        this.address = address;
+        this.gender = gender;
         this.tagList = tagList;
+        this.age = age;
+    }
+
+    public example.milk.platform.server.entity.account.ServiceUser toEntity() {
+        return new example.milk.platform.server.entity.account.ServiceUser(
+                id, pw, name, phone_num, address, age, gender, tagList
+        );
     }
 }

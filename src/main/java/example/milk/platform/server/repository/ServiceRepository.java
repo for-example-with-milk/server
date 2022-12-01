@@ -1,6 +1,6 @@
 package example.milk.platform.server.repository;
 
-import example.milk.platform.server.service.Service;
+import example.milk.platform.server.entity.service.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
