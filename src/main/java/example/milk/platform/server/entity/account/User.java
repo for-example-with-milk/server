@@ -21,7 +21,7 @@ public class User {
     private String name;
 
     @Column(name = "phone_num")
-    private String phone_num;
+    private String phoneNum;
 
     protected User() {}
 
@@ -29,6 +29,6 @@ public class User {
         this.id = id;
         this.pw = pw;
         this.name = name;
-        this.phone_num = phone;
+        this.phoneNum = phone;
     }
 }
