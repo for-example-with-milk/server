@@ -85,4 +85,16 @@ public class AccountRepository {
             return null;
         }
     }
+
+    public String getProvNameById(String id) {
+        TypedQuery<String> query = em.createQuery(
+                "select providerName from ServiceProvider where id = :parm", String.class);
+        query.setParameter("parm", id);
+
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
