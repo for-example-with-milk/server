@@ -36,4 +36,14 @@ public class AccountRepository {
         }
         return true;
     }
+
+    public boolean matchAccount(String id, String pw) {
+        TypedQuery<String> query = em.createQuery("SELECT id FROM User WHERE id=:id AND pw=:pw", String.class);
+        query.setParameter("id", id);
+        query.setParameter("pw", pw);
+
+        if (query.getResultList().size() == 0)
+            return false;
+        return true;
+    }
 }
