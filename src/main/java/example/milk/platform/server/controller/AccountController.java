@@ -1,11 +1,9 @@
 package example.milk.platform.server.controller;
 
 import example.milk.platform.server.account.AccountManager;
-import example.milk.platform.server.packet.requestbody.GetNameRequestBody;
-import example.milk.platform.server.packet.requestbody.LoginRequestBody;
-import example.milk.platform.server.packet.requestbody.SignUpProvRequestBody;
-import example.milk.platform.server.packet.requestbody.SignUpUserRequestBody;
+import example.milk.platform.server.packet.requestbody.*;
 import example.milk.platform.server.packet.responsebody.GetNameResponseBody;
+import example.milk.platform.server.packet.responsebody.GetProvNameResponseBody;
 import example.milk.platform.server.packet.responsebody.LoginResponseBody;
 import example.milk.platform.server.packet.responsebody.SignUpResponseBody;
 import lombok.RequiredArgsConstructor;
@@ -37,5 +35,10 @@ public class AccountController {
     @PostMapping("/get/name")
     public GetNameResponseBody getNameResponseBody(@RequestBody GetNameRequestBody request) {
         return accountManager.getName(request);
+    }
+
+    @PostMapping("/get/providername")
+    public GetProvNameResponseBody getNameProvResponseBody(@RequestBody GetProvNameRequestBody request) {
+        return accountManager.getProvName(request);
     }
 }

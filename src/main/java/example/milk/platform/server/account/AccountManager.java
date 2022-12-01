@@ -1,12 +1,10 @@
 package example.milk.platform.server.account;
 
-import example.milk.platform.server.packet.requestbody.GetNameRequestBody;
-import example.milk.platform.server.packet.requestbody.LoginRequestBody;
-import example.milk.platform.server.packet.requestbody.SignUpProvRequestBody;
+import example.milk.platform.server.packet.requestbody.*;
 import example.milk.platform.server.packet.responsebody.GetNameResponseBody;
+import example.milk.platform.server.packet.responsebody.GetProvNameResponseBody;
 import example.milk.platform.server.packet.responsebody.LoginResponseBody;
 import example.milk.platform.server.repository.AccountRepository;
-import example.milk.platform.server.packet.requestbody.SignUpUserRequestBody;
 import example.milk.platform.server.packet.responsebody.SignUpResponseBody;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -77,5 +75,14 @@ public class AccountManager {
             return new GetNameResponseBody(1, "존재하지 않는 계정입니다.", "");
 
         return new GetNameResponseBody(0, "", name);
+    }
+
+    public GetProvNameResponseBody getProvName(GetProvNameRequestBody request) {
+        String providerName = accountRepository.getProvNameById(request.getId());
+
+        if (providerName == null)
+            return new GetProvNameResponseBody(1, "존재하지 않는 계정입니다.", "");
+
+        return new GetProvNameResponseBody(0, "", providerName);
     }
 }
