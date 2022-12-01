@@ -12,6 +12,6 @@ public class SignUpProvRequestBody {
     private String id;
     private String pw;
     private String pw2;
-    private String phone_number;
-    private String provider_name;
+    private String phoneNumber;
+    private String providerName;
 }

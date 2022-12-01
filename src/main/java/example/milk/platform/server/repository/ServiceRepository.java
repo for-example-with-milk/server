@@ -1,6 +1,6 @@
 package example.milk.platform.server.repository;
 
-import example.milk.platform.server.entity.service.Service;
+import example.milk.platform.server.service.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +17,7 @@ public class ServiceRepository {
         em.persist(service);
     }
 
-    public Optional<Service> findByid(Long id) {
+    public Optional<Service> findById(Long id) {
         //Service service = em.find();
         return Optional.empty();
     }

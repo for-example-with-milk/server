@@ -1,10 +1,29 @@
 package example.milk.platform.server.account;
 
-public abstract class User {
+import lombok.Getter;
+
+import javax.persistence.*;
+@Entity
+@Table(name = "USER")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE")
+@Getter
+public class User {
+
+    @Id
+    @Column(name = "user_id")
     protected String id;
-    protected String pw;
-    protected String name;
-    protected String phoneNum;
+
+    @Column(name = "pw")
+    private String pw;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "phone_num")
+    private String phoneNum;
+
+    protected User() {}
 
     public User(String id, String pw, String name, String phone) {
         this.id = id;

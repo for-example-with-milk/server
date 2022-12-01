@@ -1,7 +1,8 @@
 package example.milk.platform.server.repository;
 
-import example.milk.platform.server.entity.account.ServiceProvider;
-import example.milk.platform.server.entity.account.ServiceUser;
+import example.milk.platform.server.account.ServiceProvider;
+import example.milk.platform.server.account.ServiceUser;
+import example.milk.platform.server.packet.requestbody.SignUpProvRequestBody;
 import example.milk.platform.server.packet.requestbody.SignUpUserRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -26,10 +27,22 @@ public class AccountRepository {
     }
 
     public boolean signUpUser(SignUpUserRequestBody request) {
-        example.milk.platform.server.account.ServiceUser user = new example.milk.platform.server.account.ServiceUser(request.getId(), request.getPw(), request.getName(), request.getPhone_number(), request.getAddress(), request.getAge(), request.getGender(), request.getTagList());
-        example.milk.platform.server.entity.account.ServiceUser entity = user.toEntity();
+        ServiceUser user = new example.milk.platform.server.account.ServiceUser(request.getId(), request.getPw(), request.getName(), request.getPhoneNumber(), request.getAddress(), request.getAge(), request.getGender(), request.getTagList());
+
         try {
-            em.persist(entity);
+            em.persist(user);
+        }
+        catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean signUpProvider(SignUpProvRequestBody request) {
+        ServiceProvider provider = new example.milk.platform.server.account.ServiceProvider(request.getId(), request.getPw(), request.getName(), request.getPhoneNumber(), request.getProviderName());
+
+        try {
+            em.persist(provider);
         }
         catch (Exception e) {
             return false;

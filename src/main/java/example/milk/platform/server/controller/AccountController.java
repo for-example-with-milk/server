@@ -27,8 +27,8 @@ public class AccountController {
         return accountManager.signUpServiceUser(request);
     }
 
-    @PostMapping("/user/signup/provider")
+    @PostMapping("/user/signup/prov")
     public SignUpResponseBody signUpProv(@RequestBody SignUpProvRequestBody request) {
-        return new SignUpResponseBody(0, "");
+        return accountManager.signUpServiceProvider(request);
     }
 }

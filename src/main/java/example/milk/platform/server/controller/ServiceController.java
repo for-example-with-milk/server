@@ -1,8 +1,8 @@
 package example.milk.platform.server.controller;
 
-import example.milk.platform.server.entity.service.Service;
-import example.milk.platform.server.entity.service.ServiceManager;
-import example.milk.platform.server.entity.service.subservice.SubService;
+import example.milk.platform.server.service.Service;
+import example.milk.platform.server.service.ServiceManager;
+import example.milk.platform.server.service.subservice.SubService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
