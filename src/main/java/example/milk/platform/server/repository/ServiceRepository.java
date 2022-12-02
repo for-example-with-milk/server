@@ -28,7 +28,7 @@ public class ServiceRepository {
 
     public boolean save(ServiceCreateRequestBody request) {
 
-        Service service = new Service(request.getId(), request.getName(), request.getIcoUrl(), request.getLore(), request.getCity(), request.getCategoryList(), request.getAccount());
+        Service service = new Service(request.getName(), request.getIcoUrl(), request.getLore(), request.getCity(), request.getCategoryList(), request.getAccount());
         try {
             em.persist(service);
         }

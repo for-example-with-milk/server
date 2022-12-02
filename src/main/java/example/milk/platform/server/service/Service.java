@@ -33,8 +33,7 @@ public class Service {
     private List<SubService> subServiceList = new ArrayList<>();
 
     protected Service() {}
-    public Service(Long id, String name, String icoUrl, String lore, String city, String categoryList, String account) {
-        this.id = id;
+    public Service(String name, String icoUrl, String lore, String city, String categoryList, String account) {
         this.name = name;
         this.icoUrl = icoUrl;
         this.lore = lore;
