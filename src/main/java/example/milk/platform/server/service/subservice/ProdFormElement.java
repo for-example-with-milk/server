@@ -13,7 +13,7 @@ public class ProdFormElement {
 
     @JoinColumn(name = "form_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private PurchaseElementForm purchaseElementForm;
+    private PurchaseTypeForm purchaseTypeForm;
 
     @Column(name = "name")
     private String name;

@@ -9,6 +9,6 @@ import javax.persistence.*;
 public class InputFormElement extends FormElement{
 
     @Column(name = "required_response_state")
-    private String RequiredResponeseState;
+    private short RequiredResponseState;
 
 }

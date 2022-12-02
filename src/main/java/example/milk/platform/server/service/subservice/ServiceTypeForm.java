@@ -11,6 +11,6 @@ public class ServiceTypeForm extends Form {
     private int price;
 
     @OneToMany(mappedBy = "serviceTypeForm")
-    private List<FormElement>formElementList = new ArrayList<>();
+    private List<FormElement> formElementList = new ArrayList<>();
 
 }

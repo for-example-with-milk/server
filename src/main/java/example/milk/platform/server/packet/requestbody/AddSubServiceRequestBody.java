@@ -1,9 +1,9 @@
 package example.milk.platform.server.packet.requestbody;
 
-import example.milk.platform.server.service.subservice.CheckBox;
-import example.milk.platform.server.service.subservice.FormElement;
-import example.milk.platform.server.service.subservice.ProdFormElement;
+import example.milk.platform.server.service.subservice.*;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 public class AddSubServiceRequestBody {
@@ -12,7 +12,9 @@ public class AddSubServiceRequestBody {
     String lore;
     short regularPaymentState;
 
-    ProdFormElement prodFormElement;
-    FormElement formElement;
-    CheckBox checkBox;
+    List<ProdFormElement> prodFormElementList;
+    List<InputFormElement> inputFormElementList;
+    List<IntegratedInputFormElement> integratedInputFormElementList;
+    List<CheckInputFormElement> checkInputFormElements;
+    List<CheckBox> checkBox;
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("A")
-public class PurchaseElementForm extends Form {
+public class PurchaseTypeForm extends Form {
 
     @OneToMany(mappedBy = "purchaseElementForm")
     private List<ProdFormElement> prodFormElementList = new ArrayList<>();
