@@ -32,7 +32,7 @@ public class UserService {
 
     @OneToOne(fetch = FetchType.LAZY)
     private Application application;
-    
+
     public int changeProgress(short newState) {
         this.progress = newState;
         return 1;

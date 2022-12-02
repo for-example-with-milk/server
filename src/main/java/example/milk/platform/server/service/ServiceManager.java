@@ -27,4 +27,8 @@ public class ServiceManager {
         }
         return new ServiceCreateResponseBody(1,"서비스 생성을 성공했습니다.");
     }
+
+    public example.milk.platform.server.service.Service findServiceById(Long serviceId) {
+        return serviceRepository.findServiceById(serviceId);
+    }
 }

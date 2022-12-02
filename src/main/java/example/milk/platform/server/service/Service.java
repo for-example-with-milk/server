@@ -1,10 +1,13 @@
 package example.milk.platform.server.service;
 
+import example.milk.platform.server.packet.requestbody.AddSubServiceRequestBody;
+import example.milk.platform.server.packet.responsebody.AddSubServiceResponseBody;
 import example.milk.platform.server.repository.ServiceRepository;
+import example.milk.platform.server.service.subservice.Form;
+import example.milk.platform.server.service.subservice.ProdFormElement;
 import example.milk.platform.server.service.subservice.SubService;
 import example.milk.platform.server.userservice.UserService;
 import lombok.*;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -36,16 +39,6 @@ public class Service {
     private List<SubService> subServiceList = new ArrayList<>();
 
     protected Service() {
-    }
-
-    public Service(String name, String icoUrl, String lore, String city, String categoryList, String account, ServiceRepository serviceRepository) {
-        this.name = name;
-        this.icoUrl = icoUrl;
-        this.lore = lore;
-        this.city = city;
-        this.categoryList = categoryList;
-        this.account = account;
-        this.subServiceList = subServiceList;
     }
 
     public Service(String name, String icoUrl, String lore, String city, String categoryList, String account) {
