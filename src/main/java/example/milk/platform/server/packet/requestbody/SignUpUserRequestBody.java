@@ -7,6 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"id"})
 public class SignUpUserRequestBody {
     private String name;
     private String id;

@@ -1,7 +1,8 @@
 package example.milk.platform.server.service;
 
 import example.milk.platform.server.service.subservice.SubService;
-import lombok.Getter;
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +32,7 @@ public class Service {
     @OneToMany(mappedBy = "service")
     private List<SubService> subServiceList = new ArrayList<>();
 
-    protected Service() {
-
-    }
-
-    public Service(Long id, String name, String icoUrl, String lore, String city, String categoryList, String account, List<SubService> subServiceList) {
+    public Service(Long id, String name, String icoUrl, String lore, String city, String categoryList, String account) {
         this.id = id;
         this.name = name;
         this.icoUrl = icoUrl;
@@ -44,6 +41,23 @@ public class Service {
         this.categoryList = categoryList;
         this.account = account;
         this.subServiceList = subServiceList;
+    }
+
+    public SubService getSubService(Long id) {
+        for (SubService subService : subServiceList) {
+            if (subService.getId() == id)
+                return subService;
+        }
+
+        return null;
+    }
+
+    public List<SubService> getSubServiceList() {
+        return this.subServiceList;
+    }
+
+    public Service() {
+
     }
 
     public SubService getSubService(Long id) {
