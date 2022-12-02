@@ -8,13 +8,10 @@ import java.util.List;
 @Getter
 public class AddSubServiceRequestBody {
     Long serviceId;
-    String name;
-    String lore;
-    short regularPaymentState;
-
+    SubService subService;
     List<ProdFormElement> prodFormElementList;
-    List<InputFormElement> inputFormElementList;
+    List<InformationFormElement> informationFormElementList;
     List<IntegratedInputFormElement> integratedInputFormElementList;
-    List<CheckInputFormElement> checkInputFormElements;
+    List<CheckInputFormElement> checkInputFormElementList;
     List<CheckBox> checkBox;
 }
