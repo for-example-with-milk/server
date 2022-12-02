@@ -11,6 +11,6 @@ import java.util.List;
 @DiscriminatorValue("A")
 public class PurchaseTypeForm extends Form {
 
-    @OneToMany(mappedBy = "purchaseElementForm")
+    @OneToMany(mappedBy = "purchaseTypeForm")
     private List<ProdFormElement> prodFormElementList = new ArrayList<>();
 }

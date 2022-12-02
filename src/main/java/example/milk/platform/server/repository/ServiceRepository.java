@@ -1,8 +1,10 @@
 package example.milk.platform.server.repository;
 
 import example.milk.platform.server.account.User;
+import example.milk.platform.server.packet.requestbody.AddSubServiceRequestBody;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
 import example.milk.platform.server.service.Service;
+import example.milk.platform.server.service.subservice.ProdFormElement;
 import example.milk.platform.server.userservice.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -36,6 +38,27 @@ public class ServiceRepository {
             return false;
         }
         return true;
+    }
+
+    public boolean saveServiceByObject(Service service) {
+        try {
+            em.persist(service);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public Service findServiceById(Long id) {
+        TypedQuery<Service> query = em.createQuery("SELECT serv FROM Service as serv WHERE id=:id", Service.class);
+        query.setParameter("id", id);
+
+        List<Service> serviceList = query.getResultList();
+        if (serviceList.size() == 0)
+            return null;
+        else
+            return (Service) serviceList;
     }
 
     public Optional<Service> findById(Long id) {
