@@ -1,11 +1,13 @@
 package example.milk.platform.server.service.subservice;
 
 import example.milk.platform.server.service.Service;
+import lombok.Getter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "subservice")
+@Getter
 public class SubService {
     @Id
     @GeneratedValue
