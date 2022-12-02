@@ -5,12 +5,13 @@ import example.milk.platform.server.packet.responsebody.ServiceCreateResponseBod
 import example.milk.platform.server.repository.ServiceRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
 
 @Getter
-@org.springframework.stereotype.Service
+@Service
 @RequiredArgsConstructor
 @Transactional
 public class ServiceManager {

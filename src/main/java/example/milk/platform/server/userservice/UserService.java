@@ -1,4 +1,4 @@
-package example.milk.platform.server.userserv;
+package example.milk.platform.server.userservice;
 
 import example.milk.platform.server.account.User;
 import example.milk.platform.server.service.Service;
@@ -32,8 +32,7 @@ public class UserService {
 
     @OneToOne(fetch = FetchType.LAZY)
     private Application application;
-
-
+    
     public int changeProgress(short newState) {
         this.progress = newState;
         return 1;

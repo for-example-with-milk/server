@@ -1,4 +1,4 @@
-package example.milk.platform.server.userserv;
+package example.milk.platform.server.userservice;
 
 
 import javax.persistence.*;

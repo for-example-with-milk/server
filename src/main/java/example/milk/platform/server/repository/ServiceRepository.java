@@ -1,9 +1,9 @@
 package example.milk.platform.server.repository;
 
-import example.milk.platform.server.account.ServiceUser;
+import example.milk.platform.server.account.User;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
-import example.milk.platform.server.packet.requestbody.SignUpUserRequestBody;
 import example.milk.platform.server.service.Service;
+import example.milk.platform.server.userservice.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -45,5 +45,27 @@ public class ServiceRepository {
 
     public List<Service> findAll() {
         return null;
+    }
+
+    public UserService findUserServiceByUserId(Service service, String userId) {
+        User user;
+        TypedQuery<User> query = em.createQuery("select user from User as user where id=:id", User.class);
+        query.setParameter("id", userId);
+
+        try {
+            user = (User) query.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+
+        TypedQuery<Long> query1 = em.createQuery("SELECT us FROM UserService as us WHERE Service=:serv AND User=:user", Long.class);
+        query1.setParameter("serv", service);
+        query1.setParameter("user", user);
+
+        try {
+            return (UserService) query1.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
