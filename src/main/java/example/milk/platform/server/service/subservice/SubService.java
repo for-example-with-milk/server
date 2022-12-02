@@ -19,9 +19,9 @@ public class SubService {
     private Service service;
 
     @Column(name = "name")
-    private char name;
+    private String name;
     @Column(name = "lore")
-    private char lore;
+    private String lore;
     @Column(name = "regular_payment_state")
     private short regular_payment_state;
 
@@ -29,7 +29,7 @@ public class SubService {
 
     }
 
-    public SubService(Service service, char name, char lore, short regular_payment_state) {
+    public SubService(Service service, String name, String lore, short regular_payment_state) {
         this.service = service;
         this.name = name;
         this.lore = lore;
