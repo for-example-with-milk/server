@@ -28,6 +28,15 @@ public class ServiceRepository {
         return true;
     }
 
+    public Optional<List<Service>> findListByTag(String tag,String city){
+        List<Service> serviceList;
+        serviceList = em.createQuery("select m from Service m where m.categoryList = :tag and m.city = :city", Service.class)
+                .setParameter("tag", tag)
+                .setParameter("city",city)
+                .getResultList();
+        return Optional.ofNullable(serviceList);
+    }
+
     public Optional<Service> findById(Long id) {
         Service service = em.find(Service.class,id);
         return  Optional.ofNullable(service);
@@ -35,7 +44,7 @@ public class ServiceRepository {
 
     public boolean save(ServiceCreateRequestBody request) {
 
-        Service service = new Service(request.getName(), request.getIcoUrl(), request.getLore(), request.getCity(), request.getCategoryList(), request.getAccount());
+        Service service = request.getService();
         try {
             em.persist(service);
         } catch (Exception e) {

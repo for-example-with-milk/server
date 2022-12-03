@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Getter
@@ -34,5 +35,10 @@ public class ServiceManager {
     public example.milk.platform.server.service.Service findServiceById(Long serviceId) {
         Optional<example.milk.platform.server.service.Service> service = serviceRepository.findById(serviceId);
         return service.orElse(null);
+    }
+
+    public List<example.milk.platform.server.service.Service> findlistByTag(String tag,String city){
+        Optional<List<example.milk.platform.server.service.Service>> serviceList = serviceRepository.findListByTag(tag,city);
+        return serviceList.orElse(null);
     }
 }
