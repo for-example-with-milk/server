@@ -22,6 +22,7 @@ public class ServiceRepository {
     public boolean existServiceById(Long id) {
         TypedQuery<Long> query = em.createQuery("SELECT id FROM Service WHERE id=:id", Long.class);
         query.setParameter("id", id);
+        System.out.println("test");
 
         if (query.getResultList().size() == 0)
             return false;
