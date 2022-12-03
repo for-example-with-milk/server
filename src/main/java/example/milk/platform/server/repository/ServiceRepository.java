@@ -31,9 +31,25 @@ public class ServiceRepository {
 
     public Optional<List<Service>> findListByTag(String tag,String city){
         List<Service> serviceList;
-        serviceList = em.createQuery("select m from Service m where m.categoryList = :tag and m.city = :city", Service.class)
-                .setParameter("tag", tag)
+        serviceList = em.createQuery("select m from Service m where m.categoryList LIKE :tag and m.city = :city", Service.class)
+                .setParameter("tag", '%'+tag+'%')
                 .setParameter("city",city)
+                .getResultList();
+        return Optional.ofNullable(serviceList);
+    }
+
+    public Optional<List<Service>> findListByProviderId(String prov_id){
+        List<Service> serviceList;
+        serviceList = em.createQuery("select m from Service m where m.userId = :prov_id", Service.class)
+                .setParameter("prov_id",prov_id)
+                .getResultList();
+        return Optional.ofNullable(serviceList);
+    }
+
+    public Optional<List<Service>> findListByUserId(String prov_id){
+        List<Service> serviceList;
+        serviceList = em.createQuery("select m from Service m where m.userServiceList = :prov_id", Service.class)
+                .setParameter("prov_id",prov_id)
                 .getResultList();
         return Optional.ofNullable(serviceList);
     }
@@ -67,7 +83,7 @@ public class ServiceRepository {
 
     public UserService findUserServiceByUserId(Service service, String userId) {
         User user;
-        TypedQuery<User> query = em.createQuery("select user from User as user where id=:id", User.class);
+        TypedQuery<User> query = em.createQuery("select user from User as user where user.id=:id", User.class);
         query.setParameter("id", userId);
 
         try {

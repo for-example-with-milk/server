@@ -18,6 +18,8 @@ public class Service {
     @Column(name = "service_id")
     private Long id;
 
+    @JoinColumn(name = "user_id")
+    private String userId;
     @Column(name = "name")
     private String name;
     @Column(name = "ico_url")
@@ -34,18 +36,14 @@ public class Service {
     @OneToMany(mappedBy = "service")
     private List<SubService> subServiceList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "service")
+    private List<UserService> userServiceList = new ArrayList<>();
+
+    //method
     protected Service() {
     }
 
-    public Service(String name, String icoUrl, String lore, String city, String categoryList, String account) {
-        this.name = name;
-        this.icoUrl = icoUrl;
-        this.lore = lore;
-        this.city = city;
-        this.categoryList = categoryList;
-        this.account = account;
-        this.subServiceList = subServiceList;
-    }
+    public int apply()
 
     public SubService getSubService(Long id) {
         for (SubService subService : subServiceList) {
