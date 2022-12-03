@@ -15,17 +15,14 @@ public class ChatMsg {
     @Column(name = "chat_msg_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-//    @Column(name = "chat_id")
-//    private long chat_id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat")
     private Chat chat;
 
     @Column(name = "user_id")
-    private long senderId;
+    private Long senderId;
 
     private LocalDateTime time;
 

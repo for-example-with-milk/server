@@ -13,10 +13,10 @@ public class Payment {
     @Column(name = "payment_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "application_id")
-    private long applicationId;
+    private Long applicationId;
 
     @Column(name = "time")
     private LocalDateTime time;

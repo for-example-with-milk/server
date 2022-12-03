@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class PaymentMsg extends ChatMsg{
 
     @Column(name = "payment_id")
-    private long paymentId;
+    private Long paymentId;
 
     @Column(name = "text")
     private String text;

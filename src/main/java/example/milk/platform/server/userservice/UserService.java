@@ -14,7 +14,7 @@ public class UserService {
     @Column(name = "user_service_id")
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")
@@ -31,7 +31,7 @@ public class UserService {
     private Chat chat;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Application application;
+    private Appliment appliment;
 
     public int changeProgress(short newState) {
         this.progress = newState;

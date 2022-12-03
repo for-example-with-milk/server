@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class SubService {
     @Id
     @GeneratedValue
-    @Column(name = "subservice_id")
+    @Column(name = "sub_service_id")
     private Long id;
 
     @JoinColumn(name = "service_id")
@@ -22,19 +22,20 @@ public class SubService {
     private String name;
     @Column(name = "lore")
     private String lore;
-    @Column(name = "regular_payment_state")
-    private short regular_payment_state;
+    @Column(name = "is_regular_payment")
+    private short isRegularPayment;
+
+    @OneToOne(mappedBy = "subService")
+    private Form form;
 
     protected SubService() {
 
     }
 
-    public SubService(Service service, String name, String lore, short regular_payment_state) {
+    public SubService(Service service, String name, String lore, short isRegularPaymentState) {
         this.service = service;
         this.name = name;
         this.lore = lore;
-        this.regular_payment_state = regular_payment_state;
+        this.isRegularPayment = isRegularPaymentState;
     }
-
-
 }

@@ -14,13 +14,13 @@ public class Chat {
     @Column(name = "chat_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
     private List<ChatMsg> chatMsgList = new ArrayList<>();
 
     @Column(name = "user_service_id")
-    private long userServiceId;
+    private Long userServiceId;
 
     @Column(name = "unread_msg")
     private int unreadMsg;

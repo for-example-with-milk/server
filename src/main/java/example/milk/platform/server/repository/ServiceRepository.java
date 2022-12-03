@@ -1,10 +1,8 @@
 package example.milk.platform.server.repository;
 
 import example.milk.platform.server.account.User;
-import example.milk.platform.server.packet.requestbody.AddSubServiceRequestBody;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
 import example.milk.platform.server.service.Service;
-import example.milk.platform.server.service.subservice.ProdFormElement;
 import example.milk.platform.server.userservice.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -33,8 +31,7 @@ public class ServiceRepository {
         Service service = new Service(request.getName(), request.getIcoUrl(), request.getLore(), request.getCity(), request.getCategoryList(), request.getAccount());
         try {
             em.persist(service);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
         return true;

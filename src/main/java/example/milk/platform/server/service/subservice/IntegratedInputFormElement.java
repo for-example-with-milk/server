@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("F")
-public class IntegratedInputFormElement extends InputFormElement{
+public class IntegratedInputFormElement extends FormElement {
 
     @Column(name = "input_kind")
     private String inputKind;
