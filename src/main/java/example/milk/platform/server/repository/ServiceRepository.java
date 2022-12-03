@@ -28,6 +28,11 @@ public class ServiceRepository {
         return true;
     }
 
+//    public Optional<List<Service>> findAllById(String tag,String city)
+//    {
+//
+//    }
+
     public Optional<Service> findById(Long id) {
         Service service = em.find(Service.class,id);
         return  Optional.ofNullable(service);
@@ -35,7 +40,7 @@ public class ServiceRepository {
 
     public boolean save(ServiceCreateRequestBody request) {
 
-        Service service = new Service(request.getName(), request.getIcoUrl(), request.getLore(), request.getCity(), request.getCategoryList(), request.getAccount());
+        Service service = request.getService();
         try {
             em.persist(service);
         } catch (Exception e) {

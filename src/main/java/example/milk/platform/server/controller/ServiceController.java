@@ -1,5 +1,6 @@
 package example.milk.platform.server.controller;
 
+import example.milk.platform.server.packet.requestbody.GetServiceRequestBody;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
 import example.milk.platform.server.packet.responsebody.GetServiceResponseBody;
 import example.milk.platform.server.packet.responsebody.ServiceCreateResponseBody;
@@ -28,7 +29,7 @@ public class ServiceController {
     }
 
     @PostMapping("/serv/get")
-    public GetServiceResponseBody findById(@RequestBody ServiceCreateRequestBody request){
+    public GetServiceResponseBody findById(@RequestBody GetServiceRequestBody request){
         GetServiceResponseBody getServiceResponseBody;
         getServiceResponseBody = new GetServiceResponseBody(1,"서비스 찾기 성공",serviceManager.findServiceById(request.getId()));
         return getServiceResponseBody;
