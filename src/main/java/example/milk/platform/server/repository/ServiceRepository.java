@@ -23,7 +23,14 @@ public class ServiceRepository {
         TypedQuery<Long> query = em.createQuery("SELECT id FROM Service WHERE id=:id", Long.class);
         query.setParameter("id", id);
 
-        return query.getResultList().size() != 0;
+        if (query.getResultList().size() == 0)
+            return false;
+        return true;
+    }
+
+    public Optional<Service> findById(Long id) {
+        Service service = em.find(Service.class,id);
+        return  Optional.ofNullable(service);
     }
 
     public boolean save(ServiceCreateRequestBody request) {
@@ -47,25 +54,6 @@ public class ServiceRepository {
         return true;
     }
 
-    public Service findServiceById(Long id) {
-        TypedQuery<Service> query = em.createQuery("SELECT serv FROM Service as serv WHERE id=:id", Service.class);
-        query.setParameter("id", id);
-
-        List<Service> serviceList = query.getResultList();
-        if (serviceList.size() == 0)
-            return null;
-        else
-            return (Service) serviceList;
-    }
-
-    public Optional<Service> findById(Long id) {
-        //Service service = em.find();
-        return Optional.empty();
-    }
-
-    public List<Service> findAll() {
-        return null;
-    }
 
     public UserService findUserServiceByUserId(Service service, String userId) {
         User user;

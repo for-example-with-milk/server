@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Getter
 @Service
@@ -16,6 +17,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class ServiceManager {
     private final ServiceRepository serviceRepository;
+
     public ServiceCreateResponseBody createService(ServiceCreateRequestBody request){
         try {
             if (!serviceRepository.save(request)) {
@@ -25,10 +27,12 @@ public class ServiceManager {
         catch (Exception e){
             return new ServiceCreateResponseBody(0 ,"서비스 생성을 실패했습니다.");
         }
+        System.out.println("생성 성공");
         return new ServiceCreateResponseBody(1,"서비스 생성을 성공했습니다.");
     }
 
     public example.milk.platform.server.service.Service findServiceById(Long serviceId) {
-        return serviceRepository.findServiceById(serviceId);
+        Optional<example.milk.platform.server.service.Service> service = serviceRepository.findById(serviceId);
+        return service.orElse(null);
     }
 }
