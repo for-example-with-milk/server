@@ -1,8 +1,10 @@
 package example.milk.platform.server.controller;
 
+import example.milk.platform.server.packet.requestbody.GetProvServiceListRequestBody;
 import example.milk.platform.server.packet.requestbody.GetServiceListRequestBody;
 import example.milk.platform.server.packet.requestbody.GetServiceRequestBody;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
+import example.milk.platform.server.packet.responsebody.GetProvServiceListResponseBody;
 import example.milk.platform.server.packet.responsebody.GetServiceListResponseBody;
 import example.milk.platform.server.packet.responsebody.GetServiceResponseBody;
 import example.milk.platform.server.packet.responsebody.ServiceCreateResponseBody;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -38,9 +41,44 @@ public class ServiceController {
     }
 
     @PostMapping("/serv/getlist")
-    public GetServiceListResponseBody findtagById(@RequestBody GetServiceListRequestBody request){
-        GetServiceListResponseBody getServiceListResponseBody = new GetServiceListResponseBody (1,"서비스 찾기 성공",serviceManager.findlistByTag(request.getTag(),request.getCity()));
+    public GetServiceListResponseBody findServiceListBytag(@RequestBody GetServiceListRequestBody request){
+        GetServiceListResponseBody getServiceListResponseBody;
+        List<Service> serviceList = serviceManager.findlistByTag(request.getTag(), request.getCity());
+        if(serviceList == null){
+            getServiceListResponseBody = new GetServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
+        }
+        else {
+            getServiceListResponseBody = new GetServiceListResponseBody(0,"서비스 찾기 성공",serviceList);
+        }
         return getServiceListResponseBody;
     }
+
+    @PostMapping("/serv/getprovlist")
+    public GetProvServiceListResponseBody findProvServiceById(@RequestBody GetProvServiceListRequestBody request){
+        GetProvServiceListResponseBody getServiceListResponseBody;
+        List<Service> serviceList = serviceManager.findlistByProviderId(request.getId());
+        if(serviceList == null){
+            getServiceListResponseBody = new GetProvServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
+        }
+        else {
+            getServiceListResponseBody = new GetProvServiceListResponseBody(0,"서비스 찾기 성공",serviceList);
+        }
+        return getServiceListResponseBody;
+    }
+
+    @PostMapping("/serv/getuserlist")
+    public GetProvServiceListResponseBody findUserServiceById(@RequestBody GetProvServiceListRequestBody request){
+        GetProvServiceListResponseBody getServiceListResponseBody;
+        List<Service> serviceList = serviceManager.findlistByProviderId(request.getId());
+        if(serviceList == null){
+            getServiceListResponseBody = new GetProvServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
+        }
+        else {
+            getServiceListResponseBody = new GetProvServiceListResponseBody(0,"서비스 찾기 성공",serviceList);
+        }
+        return getServiceListResponseBody;
+    }
+
+
 
 }
