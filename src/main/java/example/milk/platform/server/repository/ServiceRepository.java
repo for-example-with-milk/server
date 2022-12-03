@@ -28,10 +28,14 @@ public class ServiceRepository {
         return true;
     }
 
-//    public Optional<List<Service>> findAllById(String tag,String city)
-//    {
-//
-//    }
+    public Optional<List<Service>> findListByTag(String tag,String city){
+        List<Service> serviceList;
+        serviceList = em.createQuery("select m from Service m where m.categoryList = :tag and m.city = :city", Service.class)
+                .setParameter("tag", tag)
+                .setParameter("city",city)
+                .getResultList();
+        return Optional.ofNullable(serviceList);
+    }
 
     public Optional<Service> findById(Long id) {
         Service service = em.find(Service.class,id);

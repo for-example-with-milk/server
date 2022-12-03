@@ -1,7 +1,9 @@
 package example.milk.platform.server.controller;
 
+import example.milk.platform.server.packet.requestbody.GetServiceListRequestBody;
 import example.milk.platform.server.packet.requestbody.GetServiceRequestBody;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
+import example.milk.platform.server.packet.responsebody.GetServiceListResponseBody;
 import example.milk.platform.server.packet.responsebody.GetServiceResponseBody;
 import example.milk.platform.server.packet.responsebody.ServiceCreateResponseBody;
 import example.milk.platform.server.service.Service;
@@ -31,9 +33,14 @@ public class ServiceController {
     @PostMapping("/serv/get")
     public GetServiceResponseBody findById(@RequestBody GetServiceRequestBody request){
         GetServiceResponseBody getServiceResponseBody;
-        getServiceResponseBody = new GetServiceResponseBody(1,"서비스 찾기 성공",serviceManager.findServiceById(request.getId()));
+        getServiceResponseBody = new GetServiceResponseBody(0,"서비스 찾기 성공",serviceManager.findServiceById(request.getId()));
         return getServiceResponseBody;
+    }
 
+    @PostMapping("/serv/getlist")
+    public GetServiceListResponseBody findtagById(@RequestBody GetServiceListRequestBody request){
+        GetServiceListResponseBody getServiceListResponseBody = new GetServiceListResponseBody (1,"서비스 찾기 성공",serviceManager.findlistByTag(request.getTag(),request.getCity()));
+        return getServiceListResponseBody;
     }
 
 }
