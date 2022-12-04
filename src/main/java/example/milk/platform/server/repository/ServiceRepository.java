@@ -66,6 +66,7 @@ public class ServiceRepository {
     public boolean save(ServiceCreateRequestBody request) {
 
         Service service = request.getService();
+        service.setUserId(request.getToken());
         try {
             em.persist(service);
         } catch (Exception e) {
@@ -73,16 +74,6 @@ public class ServiceRepository {
         }
         return true;
     }
-
-//    public Optional<List<SubService>> findSubServiceListByServiceId(Long serviceId){
-//        List<SubService> subServiceList;
-//
-//        subServiceList  = em.createQuery(
-//                        "SELECT m FROM SubService m WHERE m.service.id = :serviceId", SubService.class)
-//                .setParameter("serviceId",serviceId)
-//                .getResultList();
-//        return Optional.ofNullable(subServiceList);
-//    }
 
     public Optional<List<SubService>> findSubServiceListByServiceId(Long serviceId){
         List<SubService> subServiceList;
@@ -91,17 +82,6 @@ public class ServiceRepository {
                 .setParameter("serviceId",serviceId)
                 .getResultList();
         return Optional.ofNullable(subServiceList);
-    }
-
-//    "SELECT s.subServiceList FROM Service s WHERE s.id = :serviceId"
-    public boolean saveServiceByObject(Service service) {
-        try {
-            em.persist(service);
-        } catch (Exception e) {
-            return false;
-        }
-
-        return true;
     }
 
     public boolean saveSubService(Service service, CreateSubServiceRequestBody resquest) {
@@ -115,36 +95,27 @@ public class ServiceRepository {
             int size = formElementList.size();
             int checkboxCnt = 0;
             for (int i = 0; i < size; i++) {
-                System.out.println("여기 됨!");
                 FormElement formElement = formElementList.get(i);
 
                 InputType inputType = formElement.getInputType();
 
-                System.out.println("여기 됨!!");
                 if ((inputType != null) && (inputType.equals(InputType.CHECKBOX))) {
-                    System.out.println("여기 됨!!!");
                     List<Checkbox> checkboxList = checkboxLists.get(checkboxCnt);
 
-                    System.out.println("여기 됨!!!!");
                     int checkboxSize = checkboxList.size();
                     for (int j = 0; j < checkboxSize; j++) {
                         Checkbox checkbox = checkboxList.get(j);
 
-                        System.out.println("여기 됨!!!! !");
                         checkbox.setFormElement(formElement);
                         em.persist(checkbox);
-                        System.out.println("여기 됨!!!! !!");
                     }
 
                     checkboxCnt++;
                 }
-                System.out.println("여기됨!!!! !!!");
 
                 formElement.setForm(form);
-                System.out.println("여기됨!!!! !!!!");
 
                 em.persist(formElement);
-                System.out.println("여기됨!!!! !!!! !");
             }
             form.setSubService(subService);
             em.persist(form);

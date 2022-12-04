@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "service")
-@Getter
+@Getter @Setter
 public class Service {
     @Id
     @GeneratedValue
@@ -35,7 +35,7 @@ public class Service {
     private String categoryList;
     @Column(name = "account")
     private String account;
-    
+
     @OneToMany(mappedBy = "service")
     @JsonManagedReference
     private List<SubService> subServiceList = new ArrayList<>();
@@ -44,7 +44,6 @@ public class Service {
     @JsonManagedReference
     private List<UserService> userServiceList = new ArrayList<>();
 
-    //method
     protected Service() {
     }
 

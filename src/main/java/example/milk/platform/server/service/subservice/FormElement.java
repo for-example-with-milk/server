@@ -17,8 +17,8 @@ public class FormElement {
     @Column(name = "form_element_id")
     private Long id;
 
-    @Column(name = "order")
-    private int order;
+    @Column(name = "idx")
+    private int idx;
 
     @Column(name = "element_type")
     @Enumerated(EnumType.STRING)
@@ -55,27 +55,31 @@ public class FormElement {
     public FormElement() {}
 
     // Information Type
-    public FormElement(ElementType elementType, String infoText) {
+    public FormElement(int idx, ElementType elementType, String infoText) {
+        this.idx = idx;
         this.elementType = elementType;
         this.infoText = infoText;
     }
 
     // Product Type
-    public FormElement(ElementType elementType, String prodName, String prodDescription) {
+    public FormElement(int idx, ElementType elementType, String prodName, String prodDescription) {
+        this.idx = idx;
         this.elementType = elementType;
         this.prodName = prodName;
         this.prodDescription = prodDescription;
     }
 
-    // Intergreted Input Type
-    public FormElement(ElementType elementType, InputType inputType, short isRequireResponse) {
+    // Intergrated Input Type
+    public FormElement(int idx, ElementType elementType, InputType inputType, short isRequireResponse) {
+        this.idx = idx;
         this.elementType = elementType;
         this.inputType = inputType;
         this.isRequireResponse = isRequireResponse;
     }
 
     // Checkbox Input Type
-    public FormElement(ElementType elementType, InputType inputType, short isRequireResponse, short isMultipleChoice) {
+    public FormElement(int idx, ElementType elementType, InputType inputType, short isRequireResponse, short isMultipleChoice) {
+        this.idx = idx;
         this.elementType = elementType;
         this.inputType = inputType;
         this.isRequireResponse = isRequireResponse;
