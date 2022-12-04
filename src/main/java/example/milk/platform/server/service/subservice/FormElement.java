@@ -1,5 +1,7 @@
 package example.milk.platform.server.service.subservice;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,10 +17,14 @@ public class FormElement {
     @Column(name = "form_element_id")
     private Long id;
 
+    @Column(name = "order")
+    private int order;
+
     @Column(name = "element_type")
     @Enumerated(EnumType.STRING)
     private ElementType elementType;
 
+    @JsonBackReference
     @JoinColumn(name = "form_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Form form;
@@ -42,6 +48,7 @@ public class FormElement {
     @Column(name = "is_multiple_choice")
     private short isMultipleChoice;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "formElement")
     private List<Checkbox> checkboxList;
 }

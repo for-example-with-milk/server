@@ -69,7 +69,7 @@ public class AccountManager {
     }
 
     public GetNameResponseBody getName(GetNameRequestBody request) {
-        String name = accountRepository.getNameById(request.getId());
+        String name = accountRepository.getNameById(request.getToken());
 
         if (name == null)
             return new GetNameResponseBody(1, "존재하지 않는 계정입니다.", "");
@@ -78,7 +78,7 @@ public class AccountManager {
     }
 
     public GetProvNameResponseBody getProvName(GetProvNameRequestBody request) {
-        String providerName = accountRepository.getProvNameById(request.getId());
+        String providerName = accountRepository.getProvNameById(request.getToken());
 
         if (providerName == null)
             return new GetProvNameResponseBody(1, "존재하지 않는 계정입니다.", "");

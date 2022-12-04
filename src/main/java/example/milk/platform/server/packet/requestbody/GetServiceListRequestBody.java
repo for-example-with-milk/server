@@ -6,4 +6,5 @@ import lombok.Getter;
 public class GetServiceListRequestBody {
     private String tag;
     private String city;
+    private String token;
 }
