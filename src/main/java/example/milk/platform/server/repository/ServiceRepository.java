@@ -4,6 +4,7 @@ import example.milk.platform.server.account.User;
 import example.milk.platform.server.packet.requestbody.CreateSubServiceRequestBody;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
 import example.milk.platform.server.service.Service;
+
 import example.milk.platform.server.service.subservice.*;
 import example.milk.platform.server.service.subservice.SubService;
 import example.milk.platform.server.userservice.UserService;
@@ -11,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -50,10 +53,10 @@ public class ServiceRepository {
         return Optional.ofNullable(serviceList);
     }
 
-    public Optional<List<Service>> findListByUserId(String prov_id){
+    public Optional<List<Service>> findListByUserId(String userId){
         List<Service> serviceList;
-        serviceList = em.createQuery("select m from Service m where m.userServiceList = :prov_id", Service.class)
-                .setParameter("prov_id",prov_id)
+        serviceList = em.createQuery("select m from Service m where m.userId = :userId", Service.class)
+                .setParameter("userId",userId)
                 .getResultList();
         return Optional.ofNullable(serviceList);
     }
@@ -85,6 +88,7 @@ public class ServiceRepository {
     }
 
     public boolean saveSubService(Service service, CreateSubServiceRequestBody resquest) {
+
         try {
             SubService subService = resquest.getSubService();
             Form form = resquest.getForm();
