@@ -29,7 +29,7 @@ public class ServiceRepository {
         return true;
     }
 
-    public Optional<List<Service>> findListByTag(String tag,String city){
+    public Optional<List<Service>> findListByTag(String tag, String city){
         List<Service> serviceList;
         serviceList = em.createQuery("select m from Service m where m.categoryList LIKE :tag and m.city = :city", Service.class)
                 .setParameter("tag", '%'+tag+'%')

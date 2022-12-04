@@ -38,6 +38,7 @@ public class UserService {
     protected UserService() {
 
     }
+
     public UserService(Long id, Service service, User user, short progress, Chat chat, Appliment appliment) {
         this.id = id;
         this.service = service;
@@ -51,3 +52,4 @@ public class UserService {
         this.progress = newState;
         return 1;
     }
+}
