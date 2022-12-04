@@ -1,7 +1,9 @@
 package example.milk.platform.server.service;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import example.milk.platform.server.packet.requestbody.ApplimentRequestBody;
 import example.milk.platform.server.packet.requestbody.CreateSubServiceRequestBody;
+import example.milk.platform.server.packet.responsebody.ApplimentResponseBody;
 import example.milk.platform.server.packet.responsebody.CreateSubServiceResponseBody;
 import example.milk.platform.server.repository.ServiceRepository;
 import example.milk.platform.server.service.subservice.*;
@@ -56,9 +58,16 @@ public class Service {
         this.account = account;
     }
 
-    public CreateSubServiceResponseBody saveSubService(CreateSubServiceRequestBody resquest, ServiceRepository serviceRepository) {
+    public void setUserService(UserService userService) {
+        if (this.userServiceList == null)
+            this.userServiceList = new ArrayList<>();
 
-        boolean result = serviceRepository.saveSubService(this, resquest);
+        this.userServiceList.add(userService);
+    }
+
+    public CreateSubServiceResponseBody saveSubService(CreateSubServiceRequestBody request, ServiceRepository serviceRepository) {
+
+        boolean result = serviceRepository.saveSubService(this, request);
         System.out.println(result);
         if (result == false)
             return new CreateSubServiceResponseBody(2, "하위서비스를 저장하지 못했습니다.");
@@ -67,14 +76,22 @@ public class Service {
     }
 
     public SubService getSubService(Long id) {
-        System.out.println();
         for (SubService subService : subServiceList) {
-            System.out.printf("%d\n", subService.getId());
             if (subService.getId().equals(id))
                 return subService;
         }
 
         return null;
+    }
+
+    public ApplimentResponseBody saveApply(ApplimentRequestBody request, ServiceRepository serviceRepository) {
+        boolean result = serviceRepository.saveApply(request, this);
+
+        System.out.println(result);
+        if (result == false)
+            return new ApplimentResponseBody(2, "저장하는 데 실패했습니다.");
+
+        return new ApplimentResponseBody(0, "성공했습니다.");
     }
 
     public List<SubService> getSubServiceList() {

@@ -1,5 +1,6 @@
 package example.milk.platform.server.userservice;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -15,8 +16,10 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "application_id")
-    private Long applicationId;
+    @JsonBackReference
+    @JoinColumn(name = "appliment")
+    @OneToOne(fetch = FetchType.LAZY)
+    private Appliment appliment;
 
     @Column(name = "time")
     private LocalDateTime time;
@@ -26,4 +29,17 @@ public class Payment {
 
     @Column(name = "amount")
     private int amount;
+
+    protected Payment() {}
+
+    public Payment(LocalDateTime time, String type, int amount) {
+        this.time = time;
+        this.type = type;
+        this.amount = amount;
+    }
+
+    public void setAppliment(Appliment appliment) {
+        this.appliment = appliment;
+        appliment.setPayment(this);
+    }
 }

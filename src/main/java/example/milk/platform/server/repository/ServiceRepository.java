@@ -1,11 +1,15 @@
 package example.milk.platform.server.repository;
 
 import example.milk.platform.server.account.User;
+import example.milk.platform.server.packet.requestbody.ApplimentRequestBody;
 import example.milk.platform.server.packet.requestbody.CreateSubServiceRequestBody;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
 import example.milk.platform.server.service.Service;
 import example.milk.platform.server.service.subservice.*;
 import example.milk.platform.server.service.subservice.SubService;
+import example.milk.platform.server.userservice.AppliedElement;
+import example.milk.platform.server.userservice.Appliment;
+import example.milk.platform.server.userservice.Payment;
 import example.milk.platform.server.userservice.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -63,6 +67,18 @@ public class ServiceRepository {
         return  Optional.ofNullable(service);
     }
 
+    public Service findServiceBySubServiceId(Long subServiceId) {
+        TypedQuery<Service> query = em.createQuery("select s.service from SubService as s where sub_service_id = :parm", Service.class);
+        query.setParameter("parm", subServiceId);
+
+        try {
+            Service service = query.getResultList().get(0);
+            return service;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public boolean save(ServiceCreateRequestBody request) {
 
         Service service = request.getService();
@@ -84,19 +100,17 @@ public class ServiceRepository {
         return Optional.ofNullable(subServiceList);
     }
 
-    public boolean saveSubService(Service service, CreateSubServiceRequestBody resquest) {
+    public boolean saveSubService(Service service, CreateSubServiceRequestBody request) {
         try {
-            SubService subService = resquest.getSubService();
-            Form form = resquest.getForm();
-            List<FormElement> formElementList = resquest.getFormElementList();
-            List<List<Checkbox>> checkboxLists = resquest.getCheckboxLists();
+            SubService subService = request.getSubService();
+            Form form = request.getForm();
+            List<FormElement> formElementList = request.getFormElementList();
+            List<List<Checkbox>> checkboxLists = request.getCheckboxLists();
 
-            System.out.println("여기 됨");
             int size = formElementList.size();
             int checkboxCnt = 0;
             for (int i = 0; i < size; i++) {
                 FormElement formElement = formElementList.get(i);
-
                 InputType inputType = formElement.getInputType();
 
                 if ((inputType != null) && (inputType.equals(InputType.CHECKBOX))) {
@@ -105,7 +119,6 @@ public class ServiceRepository {
                     int checkboxSize = checkboxList.size();
                     for (int j = 0; j < checkboxSize; j++) {
                         Checkbox checkbox = checkboxList.get(j);
-
                         checkbox.setFormElement(formElement);
                         em.persist(checkbox);
                     }
@@ -114,7 +127,6 @@ public class ServiceRepository {
                 }
 
                 formElement.setForm(form);
-
                 em.persist(formElement);
             }
             form.setSubService(subService);
@@ -122,6 +134,53 @@ public class ServiceRepository {
 
             subService.setService(service);
             em.persist(subService);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean saveApply(ApplimentRequestBody request, Service service) {
+        try {
+            UserService userService = new UserService(service, request.getUser(), (short) 1, null, request.getAppliment());
+            Appliment appliment = request.getAppliment();
+            Payment payment = request.getPayment();
+            List<AppliedElement> appliedElementList = request.getAppliedElementList();
+
+            int size = appliedElementList.size();
+//            int checkboxCnt = 0;
+            for (int i = 0; i < size; i++) {
+                AppliedElement appliedElement = appliedElementList.get(i);
+
+//                ElementType elementType = appliedElement.getElementType();
+//                if ((elementType != null) && (elementType.equals(example.milk.platform.server.userservice.ElementType))) {
+//                    List<Checkbox> checkboxList = checkboxLists.get(checkboxCnt);
+//
+//                    int checkboxSize = checkboxList.size();
+//                    for (int j = 0; j < checkboxSize; j++) {
+//                        Checkbox checkbox = checkboxList.get(j);
+//                        checkbox.setFormElement(formElement);
+//                        em.persist(checkbox);
+//                    }
+//
+//                    checkboxCnt++;
+//                }
+                appliedElement.setAppliment(appliment);
+                em.persist(appliedElement);
+            }
+            appliment.setUserService(userService);
+            em.persist(appliment);
+
+            payment.setAppliment(appliment);
+            em.persist(payment);
+
+            userService.setService(service);
+            em.persist(userService);
+
+            service.setUserService(userService);
+            em.persist(service);
+
         } catch (Exception e) {
             return false;
         }

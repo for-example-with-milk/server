@@ -1,8 +1,11 @@
 package example.milk.platform.server.userservice;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,6 +18,11 @@ public class AppliedElement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // form element에 대응되는 index
+    @Column(name = "idx")
+    int idx;
+
+    @JsonBackReference
     @JoinColumn(name = "appliment_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Appliment appliment;
@@ -36,6 +44,36 @@ public class AppliedElement {
 
     // 이진데이터 구현 X
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "appliedElement")
     private List<Checkedbox> checkedboxList;
+
+    protected AppliedElement() {}
+    // product type
+    public AppliedElement(int idx, ElementType elementType, String prodName, int prodPrice, int prodNum) {
+        this.idx = idx;
+        this.elementType = elementType;
+        this.prodName = prodName;
+        this.prodPrice = prodPrice;
+        this.prodNum = prodNum;
+    }
+
+    // text type
+    public AppliedElement(int idx, ElementType elementType, String text) {
+        this.idx = idx;
+        this.elementType = elementType;
+        this.text = text;
+    }
+
+    public void setAppliment(Appliment appliment) {
+        this.appliment = appliment;
+        appliment.setAppliedElement(this);
+    }
+
+    public void setCheckedbox(Checkedbox checkedbox) {
+        if (this.checkedboxList == null)
+            this.checkedboxList = new ArrayList<>();
+
+        this.checkedboxList.add(checkedbox);
+    }
 }

@@ -37,6 +37,10 @@ public class ServiceManager {
         return service;
     }
 
+    public Service findServiceBySubServiceId(Long subServiceId) {
+        return serviceRepository.findServiceBySubServiceId(subServiceId);
+    }
+
     public List<Service> findlistByTag(String tag,String city){
         Optional<List<Service>> serviceList = serviceRepository.findListByTag(tag,city);
         List<Service> result = serviceList.orElse(null);

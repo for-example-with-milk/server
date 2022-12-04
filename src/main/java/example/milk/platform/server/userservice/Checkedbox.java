@@ -1,5 +1,7 @@
 package example.milk.platform.server.userservice;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,10 +12,16 @@ public class Checkedbox {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "applied_element_id")
     private AppliedElement appliedElement;
 
     @Column(name = "name")
     private String name;
+
+    public void setAppliedElement(AppliedElement appliedElement) {
+        this.appliedElement = appliedElement;
+
+    }
 }

@@ -41,17 +41,24 @@ public class UserService {
 
     }
 
-    public UserService(Long id, Service service, User user, short progress, Chat chat, Appliment appliment) {
-        this.id = id;
+    public UserService(Service service, User user, short progress, Chat chat, Appliment appliment) {
         this.service = service;
         this.user = user;
         this.progress = progress;
         this.chat = chat;
-        this.appliment = appliment;
     }
 
     public int changeProgress(short newState) {
         this.progress = newState;
         return 1;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+        service.setUserService(this);
+    }
+
+    public void setAppliment(Appliment appliment) {
+        this.appliment = appliment;
     }
 }

@@ -1,17 +1,23 @@
 package example.milk.platform.server.controller;
 
+import example.milk.platform.server.account.User;
 import example.milk.platform.server.packet.requestbody.*;
 import example.milk.platform.server.packet.responsebody.*;
 
 import example.milk.platform.server.service.Service;
 import example.milk.platform.server.service.ServiceManager;
 import example.milk.platform.server.service.subservice.*;
+import example.milk.platform.server.userservice.AppliedElement;
+import example.milk.platform.server.userservice.Appliment;
+import example.milk.platform.server.userservice.ElementType;
+import example.milk.platform.server.userservice.Payment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,6 +103,16 @@ public class ServiceController {
         return service.saveSubService(request, serviceManager.getServiceRepository());
     }
 
+    @PostMapping("/appliment")
+    public ApplimentResponseBody apply(@RequestBody ApplimentRequestBody request) {
+        Service service = serviceManager.findServiceBySubServiceId(request.getSubServiceId());
+        if (service == null) {
+            return new ApplimentResponseBody(1, "서비스 혹은 하위서비스가 없습니다.");
+        }
+
+        return service.saveApply(request, serviceManager.getServiceRepository());
+    }
+
 //    @GetMapping("/get/json")
 //    public CreateSubServiceRequestBody createSubServiceRequestBody() {
 //
@@ -113,6 +129,34 @@ public class ServiceController {
 //
 //        CreateSubServiceRequestBody requestBody = new CreateSubServiceRequestBody(
 //                9L, subService, form, formElementList, null);
+//
+//        return requestBody;
+//    }
+
+//    @GetMapping("/getjson")
+//    public ApplimentRequestBody applimentRequestBody() {
+//
+//        User user = new User("id1", "aa", "usr1", "000-0000-0000");
+//
+//        LocalDateTime time = LocalDateTime.now();
+//
+//        Appliment appliment = new Appliment("우유 배달", time);
+//
+//        Payment payment = new Payment(time, "카드", 8000);
+//
+//        List<AppliedElement> appliedElementList = new ArrayList<>();
+//        appliedElementList.add(new AppliedElement((short) 1, example.milk.platform.server.userservice.ElementType.TEXT, "대구 북구 경진로12길 xx, 201호"));
+//        appliedElementList.add(new AppliedElement((short) 3, example.milk.platform.server.userservice.ElementType.PRODUCT, "초코우유", 2000, 4));
+//
+//
+//        ApplimentRequestBody requestBody = new ApplimentRequestBody(
+//                user,
+//                9L,
+//                appliment,
+//                payment,
+//                appliedElementList,
+//                null
+//                );
 //
 //        return requestBody;
 //    }
