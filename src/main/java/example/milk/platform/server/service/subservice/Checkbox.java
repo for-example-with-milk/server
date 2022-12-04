@@ -1,5 +1,7 @@
 package example.milk.platform.server.service.subservice;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +12,7 @@ public class Checkbox {
     @Column(name = "checkbox_id")
     private Long Id;
 
+    @JsonBackReference
     @JoinColumn(name = "form_element_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private FormElement formElement;

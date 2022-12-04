@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class GetProvServiceListRequestBody {
-    private String id;
+    private String token;
 }

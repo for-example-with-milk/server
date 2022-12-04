@@ -12,5 +12,6 @@ import javax.persistence.Column;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ServiceCreateRequestBody {
-    Service service;
+    private Service service;
+    private String token;
 }

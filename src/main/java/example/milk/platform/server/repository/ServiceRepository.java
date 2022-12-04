@@ -3,12 +3,15 @@ package example.milk.platform.server.repository;
 import example.milk.platform.server.account.User;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
 import example.milk.platform.server.service.Service;
+import example.milk.platform.server.service.subservice.SubService;
 import example.milk.platform.server.userservice.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,7 +72,27 @@ public class ServiceRepository {
         }
         return true;
     }
+//
+//    public Optional<List<SubService>> findSubServiceListByServiceId(Long serviceId){
+//        List<SubService> subServiceList;
+//
+//        subServiceList  = em.createQuery(
+//                        "SELECT m FROM SubService m WHERE m.service.id = :serviceId", SubService.class)
+//                .setParameter("serviceId",serviceId)
+//                .getResultList();
+//        return Optional.ofNullable(subServiceList);
+//    }
 
+    public Optional<List<SubService>> findSubServiceListByServiceId(Long serviceId){
+        List<SubService> subServiceList;
+        subServiceList = em.createQuery(
+                "SELECT m FROM SubService m WHERE m.service.id = :serviceId", SubService.class)
+                .setParameter("serviceId",serviceId)
+                .getResultList();
+        return Optional.ofNullable(subServiceList);
+    }
+
+//    "SELECT s.subServiceList FROM Service s WHERE s.id = :serviceId"
     public boolean saveServiceByObject(Service service) {
         try {
             em.persist(service);

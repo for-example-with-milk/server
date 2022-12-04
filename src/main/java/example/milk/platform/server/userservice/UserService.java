@@ -1,5 +1,6 @@
 package example.milk.platform.server.userservice;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import example.milk.platform.server.account.User;
 import example.milk.platform.server.service.Service;
 import example.milk.platform.server.service.ServiceManager;
@@ -17,6 +18,7 @@ public class UserService {
     @GeneratedValue
     private Long id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")
     private Service service;
@@ -38,6 +40,7 @@ public class UserService {
     protected UserService() {
 
     }
+
     public UserService(Long id, Service service, User user, short progress, Chat chat, Appliment appliment) {
         this.id = id;
         this.service = service;
@@ -51,3 +54,4 @@ public class UserService {
         this.progress = newState;
         return 1;
     }
+}
