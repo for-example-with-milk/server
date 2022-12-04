@@ -72,17 +72,14 @@ public class ServiceManager {
         }
     }
 
-//    public List<example.milk.platform.server.service.Service> findlistByUserId(String id){
-//        Optional<List<example.milk.platform.server.service.Service>> serviceList = serviceRepository.findListByProviderId(id);
-//        example.milk.platform.server.service.Service service = new example.milk.platform.server.service.Service();
-//        UserService userService;
-//        userService.getUser(serviceRepository,id);
-//        List<example.milk.platform.server.service.Service> result = serviceList.orElse(null);
-//        if ( result == null){
-//            return null;
-//        }
-//        else{
-//            return result;
-//        }
-//    }
+    public List<Service> findlistByUserId(String id){
+        Optional<List<Service>> serviceList = serviceRepository.findListByUserId(id);
+        List<Service> result = serviceList.orElse(null);
+        if ( result == null){
+            return null;
+        }
+        else{
+            return result;
+        }
+    }
 }

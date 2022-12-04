@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "service")
-@Getter
+@Getter @Setter
 public class Service {
     @Id
     @GeneratedValue

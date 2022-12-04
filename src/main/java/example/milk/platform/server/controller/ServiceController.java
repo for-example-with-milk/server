@@ -61,15 +61,15 @@ public class ServiceController {
         return getServiceListResponseBody;
     }
 
-    @PostMapping("/serv/getuserlist")
-    public GetProvServiceListResponseBody findUserServiceById(@RequestBody GetProvServiceListRequestBody request){
-        GetProvServiceListResponseBody getServiceListResponseBody;
-        List<Service> serviceList = serviceManager.findlistByProviderId(request.getToken());
+    @PostMapping("/serv/getUserlist")
+    public GetUserServiceListResponseBody findUserServiceById(@RequestBody GetUserServiceListRequestBody request){
+        GetUserServiceListResponseBody getServiceListResponseBody;
+        List<Service> serviceList = serviceManager.findlistByUserId(request.getToken());
         if(serviceList == null){
-            getServiceListResponseBody = new GetProvServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
+            getServiceListResponseBody = new GetUserServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
         }
         else {
-            getServiceListResponseBody = new GetProvServiceListResponseBody(0,"서비스 찾기 성공",serviceList);
+            getServiceListResponseBody = new GetUserServiceListResponseBody(0,"서비스 찾기 성공",serviceList);
         }
         return getServiceListResponseBody;
     }

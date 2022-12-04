@@ -49,10 +49,10 @@ public class ServiceRepository {
         return Optional.ofNullable(serviceList);
     }
 
-    public Optional<List<Service>> findListByUserId(String prov_id){
+    public Optional<List<Service>> findListByUserId(String userId){
         List<Service> serviceList;
-        serviceList = em.createQuery("select m from Service m where m.userServiceList = :prov_id", Service.class)
-                .setParameter("prov_id",prov_id)
+        serviceList = em.createQuery("select m from Service m where m.userId = :userId", Service.class)
+                .setParameter("userId",userId)
                 .getResultList();
         return Optional.ofNullable(serviceList);
     }
@@ -65,6 +65,7 @@ public class ServiceRepository {
     public boolean save(ServiceCreateRequestBody request) {
 
         Service service = request.getService();
+        service.setUserId(request.getToken());
         try {
             em.persist(service);
         } catch (Exception e) {
@@ -72,16 +73,6 @@ public class ServiceRepository {
         }
         return true;
     }
-//
-//    public Optional<List<SubService>> findSubServiceListByServiceId(Long serviceId){
-//        List<SubService> subServiceList;
-//
-//        subServiceList  = em.createQuery(
-//                        "SELECT m FROM SubService m WHERE m.service.id = :serviceId", SubService.class)
-//                .setParameter("serviceId",serviceId)
-//                .getResultList();
-//        return Optional.ofNullable(subServiceList);
-//    }
 
     public Optional<List<SubService>> findSubServiceListByServiceId(Long serviceId){
         List<SubService> subServiceList;
