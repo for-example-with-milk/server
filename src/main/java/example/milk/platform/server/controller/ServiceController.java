@@ -38,7 +38,7 @@ public class ServiceController {
     @PostMapping("/serv/getlist")
     public GetServiceListResponseBody findServiceListBytag(@RequestBody GetServiceListRequestBody request){
         GetServiceListResponseBody getServiceListResponseBody;
-        List<Service> serviceList = serviceManager.findlistByTag(request.getTag(), request.getCity());
+        List<Service> serviceList = serviceManager.findlistByTag(request.getTag());
         if(serviceList == null){
             getServiceListResponseBody = new GetServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
         }
@@ -72,32 +72,6 @@ public class ServiceController {
         }
         else {
             getServiceListResponseBody = new GetUserServiceListResponseBody(0,"서비스 찾기 성공",serviceList);
-        }
-        return getServiceListResponseBody;
-    }
-
-    @PostMapping("/serv/getSublist")
-    public GetSubServiceListResponsebody findUserServiceById(@RequestBody GetSubServiceListRequestbody request){
-        GetSubServiceListResponsebody getServiceListResponseBody;
-        List<SubService> serviceList = serviceManager.findSubServicelistByServiceid(request.getId());
-        if(serviceList == null){
-            getServiceListResponseBody = new GetSubServiceListResponsebody(1,"서비스가 존재하지 않습니다.", null);
-        }
-        else {
-            getServiceListResponseBody = new GetSubServiceListResponsebody(0,"서비스 찾기 성공", serviceList);
-        }
-        return getServiceListResponseBody;
-    }
-
-    @PostMapping("/serv/getSublist")
-    public GetSubServiceListResponsebody findUserServiceById(@RequestBody GetSubServiceListRequestbody request){
-        GetSubServiceListResponsebody getServiceListResponseBody;
-        List<SubService> serviceList = serviceManager.findSubServicelistByServiceid(request.getId());
-        if(serviceList == null){
-            getServiceListResponseBody = new GetSubServiceListResponsebody(1,"서비스가 존재하지 않습니다.", null);
-        }
-        else {
-            getServiceListResponseBody = new GetSubServiceListResponsebody(0,"서비스 찾기 성공", serviceList);
         }
         return getServiceListResponseBody;
     }
