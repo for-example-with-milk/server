@@ -39,7 +39,7 @@ public class Service {
     @Column(name = "category_list")
     private String categoryList;
     @Column(name = "account")
-    private String account;
+    private String bAccount;
 
 
     @OneToMany(mappedBy = "service")
@@ -53,13 +53,13 @@ public class Service {
     protected Service() {
     }
 
-    public Service(String name, String icoUrl, String lore, String city, String categoryList, String account) {
+    public Service(String name, String icoUrl, String lore, String city, String categoryList, String bAccount) {
         this.name = name;
         this.icoUrl = icoUrl;
         this.lore = lore;
         this.city = city;
         this.categoryList = categoryList;
-        this.account = account;
+        this.bAccount = bAccount;
     }
 
     public void setUserService(UserService userService) {

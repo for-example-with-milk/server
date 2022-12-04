@@ -49,6 +49,7 @@ public class AppliedElement {
     private List<Checkedbox> checkedboxList;
 
     protected AppliedElement() {}
+
     // product type
     public AppliedElement(int idx, ElementType elementType, String prodName, int prodPrice, int prodNum) {
         this.idx = idx;
