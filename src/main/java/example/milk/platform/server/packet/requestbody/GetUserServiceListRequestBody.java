@@ -1,8 +1,7 @@
 package example.milk.platform.server.packet.requestbody;
-
 import lombok.Getter;
 
 @Getter
-public class GetServiceListRequestBody {
-    private String tag;
+public class GetUserServiceListRequestBody {
+    private String token;
 }

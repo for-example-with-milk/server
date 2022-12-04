@@ -1,5 +1,8 @@
 package example.milk.platform.server.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import example.milk.platform.server.packet.requestbody.ApplimentRequestBody;
 import example.milk.platform.server.packet.requestbody.CreateSubServiceRequestBody;
@@ -38,6 +41,7 @@ public class Service {
     @Column(name = "account")
     private String account;
 
+
     @OneToMany(mappedBy = "service")
     @JsonManagedReference
     private List<SubService> subServiceList = new ArrayList<>();
@@ -74,6 +78,7 @@ public class Service {
 
         return new CreateSubServiceResponseBody(0, "성공했습니다.");
     }
+
 
     public SubService getSubService(Long id) {
         for (SubService subService : subServiceList) {

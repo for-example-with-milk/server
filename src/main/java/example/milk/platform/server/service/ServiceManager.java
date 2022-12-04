@@ -4,6 +4,8 @@ import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
 import example.milk.platform.server.packet.responsebody.ServiceCreateResponseBody;
 import example.milk.platform.server.repository.ServiceRepository;
 import example.milk.platform.server.service.subservice.SubService;
+import example.milk.platform.server.userservice.UserService;
+import example.milk.platform.server.service.Service;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -32,17 +34,17 @@ public class ServiceManager {
         return new ServiceCreateResponseBody(0,"서비스 생성을 성공했습니다.");
     }
 
-    public example.milk.platform.server.service.Service findServiceById(Long serviceId) {
-        example.milk.platform.server.service.Service service = serviceRepository.findById(serviceId).get();
-        return service;
+    public Service findServiceById(Long serviceId) {
+        Optional<Service> service = serviceRepository.findById(serviceId);
+        return service.orElse(null);
     }
 
     public Service findServiceBySubServiceId(Long subServiceId) {
         return serviceRepository.findServiceBySubServiceId(subServiceId);
     }
 
-    public List<Service> findlistByTag(String tag,String city){
-        Optional<List<Service>> serviceList = serviceRepository.findListByTag(tag,city);
+    public List<Service> findlistByTag(String tag){
+        Optional<List<Service>> serviceList = serviceRepository.findListByTag(tag);
         List<Service> result = serviceList.orElse(null);
         if ( result == null){
             return null;
@@ -54,6 +56,7 @@ public class ServiceManager {
     public List<Service> findlistByProviderId(String id){
         Optional<List<Service>> serviceList = serviceRepository.findListByProviderId(id);
         List<Service> result = serviceList.orElse(null);
+
         if ( result == null){
             return null;
         }
@@ -74,17 +77,15 @@ public class ServiceManager {
         }
     }
 
-//    public List<example.milk.platform.server.service.Service> findlistByUserId(String id){
-//        Optional<List<example.milk.platform.server.service.Service>> serviceList = serviceRepository.findListByProviderId(id);
-//        example.milk.platform.server.service.Service service = new example.milk.platform.server.service.Service();
-//        UserService userService;
-//        userService.getUser(serviceRepository,id);
-//        List<example.milk.platform.server.service.Service> result = serviceList.orElse(null);
-//        if ( result == null){
-//            return null;
-//        }
-//        else{
-//            return result;
-//        }
-//    }
+
+    public List<Service> findlistByUserId(String id){
+        Optional<List<Service>> serviceList = serviceRepository.findListByUserId(id);
+        List<Service> result = serviceList.orElse(null);
+        if ( result == null){
+            return null;
+        }
+        else{
+            return result;
+        }
+    }
 }
