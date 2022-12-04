@@ -35,6 +35,9 @@ public class FormElement {
     @Column(name = "prod_description")
     private String prodDescription;
 
+    @Column(name = "prod_price")
+    private int prodPrice;
+
     @Column(name = "info_text")
     private String infoText;
 
@@ -62,11 +65,12 @@ public class FormElement {
     }
 
     // Product Type
-    public FormElement(int idx, ElementType elementType, String prodName, String prodDescription) {
+    public FormElement(int idx, ElementType elementType, String prodName, String prodDescription, int prodPrice) {
         this.idx = idx;
         this.elementType = elementType;
         this.prodName = prodName;
         this.prodDescription = prodDescription;
+        this.prodPrice = prodPrice;
     }
 
     // Intergrated Input Type
