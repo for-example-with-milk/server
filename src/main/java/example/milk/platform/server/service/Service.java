@@ -1,5 +1,8 @@
 package example.milk.platform.server.service;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import example.milk.platform.server.packet.requestbody.CreateSubServiceRequestBody;
+import example.milk.platform.server.packet.responsebody.CreateSubServiceResponseBody;
 import example.milk.platform.server.repository.ServiceRepository;
 import example.milk.platform.server.service.subservice.*;
 import example.milk.platform.server.userservice.UserService;
@@ -31,6 +34,7 @@ public class Service {
     @Column(name = "account")
     private String account;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "service")
     private List<SubService> subServiceList = new ArrayList<>();
 
@@ -44,12 +48,23 @@ public class Service {
         this.city = city;
         this.categoryList = categoryList;
         this.account = account;
-        this.subServiceList = subServiceList;
+    }
+
+    public CreateSubServiceResponseBody saveSubService(CreateSubServiceRequestBody resquest, ServiceRepository serviceRepository) {
+
+        boolean result = serviceRepository.saveSubService(this, resquest);
+        System.out.println(result);
+        if (result == false)
+            return new CreateSubServiceResponseBody(2, "하위서비스를 저장하지 못했습니다.");
+
+        return new CreateSubServiceResponseBody(0, "성공했습니다.");
     }
 
     public SubService getSubService(Long id) {
+        System.out.println();
         for (SubService subService : subServiceList) {
-            if (subService.getId() == id)
+            System.out.printf("%d\n", subService.getId());
+            if (subService.getId().equals(id))
                 return subService;
         }
 

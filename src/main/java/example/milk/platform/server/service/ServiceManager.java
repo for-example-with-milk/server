@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Getter
 @Service
@@ -32,7 +31,9 @@ public class ServiceManager {
     }
 
     public example.milk.platform.server.service.Service findServiceById(Long serviceId) {
-        Optional<example.milk.platform.server.service.Service> service = serviceRepository.findById(serviceId);
-        return service.orElse(null);
+        example.milk.platform.server.service.Service service = serviceRepository.findById(serviceId).get();
+        return service;
     }
+
+
 }
