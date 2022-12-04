@@ -5,6 +5,7 @@ import example.milk.platform.server.packet.requestbody.CreateSubServiceRequestBo
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
 import example.milk.platform.server.service.Service;
 import example.milk.platform.server.service.subservice.*;
+import example.milk.platform.server.service.subservice.SubService;
 import example.milk.platform.server.userservice.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,6 @@ import java.util.Optional;
 public class ServiceRepository {
 
     private final EntityManager em;
-
 
     public boolean existServiceById(Long id) {
         TypedQuery<Long> query = em.createQuery("SELECT id FROM Service WHERE id=:id", Long.class);
@@ -74,6 +74,26 @@ public class ServiceRepository {
         return true;
     }
 
+//    public Optional<List<SubService>> findSubServiceListByServiceId(Long serviceId){
+//        List<SubService> subServiceList;
+//
+//        subServiceList  = em.createQuery(
+//                        "SELECT m FROM SubService m WHERE m.service.id = :serviceId", SubService.class)
+//                .setParameter("serviceId",serviceId)
+//                .getResultList();
+//        return Optional.ofNullable(subServiceList);
+//    }
+
+    public Optional<List<SubService>> findSubServiceListByServiceId(Long serviceId){
+        List<SubService> subServiceList;
+        subServiceList = em.createQuery(
+                "SELECT m FROM SubService m WHERE m.service.id = :serviceId", SubService.class)
+                .setParameter("serviceId",serviceId)
+                .getResultList();
+        return Optional.ofNullable(subServiceList);
+    }
+
+//    "SELECT s.subServiceList FROM Service s WHERE s.id = :serviceId"
     public boolean saveServiceByObject(Service service) {
         try {
             em.persist(service);

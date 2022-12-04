@@ -3,7 +3,6 @@ package example.milk.platform.server.packet.requestbody;
 import lombok.Getter;
 
 @Getter
-public class GetServiceRequestBody {
+public class GetSubServiceListRequestbody {
     private Long id;
-    private String token;
 }

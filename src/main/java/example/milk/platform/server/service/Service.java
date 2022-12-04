@@ -38,9 +38,11 @@ public class Service {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "service")
+    @JsonManagedReference
     private List<SubService> subServiceList = new ArrayList<>();
 
     @OneToMany(mappedBy = "service")
+    @JsonManagedReference
     private List<UserService> userServiceList = new ArrayList<>();
 
     //method

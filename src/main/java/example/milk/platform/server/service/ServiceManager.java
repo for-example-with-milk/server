@@ -3,17 +3,17 @@ package example.milk.platform.server.service;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
 import example.milk.platform.server.packet.responsebody.ServiceCreateResponseBody;
 import example.milk.platform.server.repository.ServiceRepository;
+import example.milk.platform.server.service.subservice.SubService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@org.springframework.stereotype.Service
 @Getter
-@Service
 @RequiredArgsConstructor
 @Transactional
 public class ServiceManager {
@@ -37,9 +37,9 @@ public class ServiceManager {
         return service;
     }
 
-    public List<example.milk.platform.server.service.Service> findlistByTag(String tag,String city){
-        Optional<List<example.milk.platform.server.service.Service>> serviceList = serviceRepository.findListByTag(tag,city);
-        List<example.milk.platform.server.service.Service> result = serviceList.orElse(null);
+    public List<Service> findlistByTag(String tag,String city){
+        Optional<List<Service>> serviceList = serviceRepository.findListByTag(tag,city);
+        List<Service> result = serviceList.orElse(null);
         if ( result == null){
             return null;
         }
@@ -47,9 +47,21 @@ public class ServiceManager {
             return result;
         }
     }
-    public List<example.milk.platform.server.service.Service> findlistByProviderId(String id){
-        Optional<List<example.milk.platform.server.service.Service>> serviceList = serviceRepository.findListByProviderId(id);
-        List<example.milk.platform.server.service.Service> result = serviceList.orElse(null);
+    public List<Service> findlistByProviderId(String id){
+        Optional<List<Service>> serviceList = serviceRepository.findListByProviderId(id);
+        List<Service> result = serviceList.orElse(null);
+        if ( result == null){
+            return null;
+        }
+        else{
+            return result;
+        }
+    }
+
+    public List<SubService> findSubServicelistByServiceid(Long serviceId){
+        List<SubService> result = serviceRepository
+                .findSubServiceListByServiceId(serviceId)
+                .orElse(null);
         if ( result == null){
             return null;
         }

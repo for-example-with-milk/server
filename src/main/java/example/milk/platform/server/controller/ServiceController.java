@@ -11,8 +11,10 @@ import example.milk.platform.server.packet.responsebody.CreateSubServiceResponse
 
 import example.milk.platform.server.packet.responsebody.GetServiceResponseBody;
 import example.milk.platform.server.packet.responsebody.ServiceCreateResponseBody;
+
 import example.milk.platform.server.service.Service;
 import example.milk.platform.server.service.ServiceManager;
+import example.milk.platform.server.service.subservice.SubService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,7 +58,7 @@ public class ServiceController {
     @PostMapping("/serv/getprovlist")
     public GetProvServiceListResponseBody findProvServiceById(@RequestBody GetProvServiceListRequestBody request){
         GetProvServiceListResponseBody getServiceListResponseBody;
-        List<Service> serviceList = serviceManager.findlistByProviderId(request.getId());
+        List<Service> serviceList = serviceManager.findlistByProviderId(request.getToken());
         if(serviceList == null){
             getServiceListResponseBody = new GetProvServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
         }
@@ -69,7 +71,7 @@ public class ServiceController {
     @PostMapping("/serv/getuserlist")
     public GetProvServiceListResponseBody findUserServiceById(@RequestBody GetProvServiceListRequestBody request){
         GetProvServiceListResponseBody getServiceListResponseBody;
-        List<Service> serviceList = serviceManager.findlistByProviderId(request.getId());
+        List<Service> serviceList = serviceManager.findlistByProviderId(request.getToken());
         if(serviceList == null){
             getServiceListResponseBody = new GetProvServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
         }
@@ -79,10 +81,22 @@ public class ServiceController {
         return getServiceListResponseBody;
     }
 
+    @PostMapping("/serv/getSublist")
+    public GetSubServiceListResponsebody findUserServiceById(@RequestBody GetSubServiceListRequestbody request){
+        GetSubServiceListResponsebody getServiceListResponseBody;
+        List<SubService> serviceList = serviceManager.findSubServicelistByServiceid(request.getId());
+        if(serviceList == null){
+            getServiceListResponseBody = new GetSubServiceListResponsebody(1,"서비스가 존재하지 않습니다.", null);
+        }
+        else {
+            getServiceListResponseBody = new GetSubServiceListResponsebody(0,"서비스 찾기 성공", serviceList);
+        }
+        return getServiceListResponseBody;
+    }
+
     @PostMapping("/subserv/create")
     public CreateSubServiceResponseBody createSubService(@RequestBody CreateSubServiceRequestBody request) {
         Service service = serviceManager.findServiceById(request.getServiceId());
-
         if (service == null) {
             return new CreateSubServiceResponseBody(1, "서비스가 존재하지 않습니다.");
         }

@@ -17,6 +17,9 @@ public class FormElement {
     @Column(name = "form_element_id")
     private Long id;
 
+    @Column(name = "order")
+    private int order;
+
     @Column(name = "element_type")
     @Enumerated(EnumType.STRING)
     private ElementType elementType;
