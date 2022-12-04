@@ -2,6 +2,7 @@ package example.milk.platform.server.service.subservice;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sun.istack.NotNull;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Form {
     @OneToOne(fetch = FetchType.LAZY)
     private SubService subService;
 
+    @NotNull
     @JsonManagedReference
     @OneToMany(mappedBy = "form")
     private List<FormElement> formElementList;

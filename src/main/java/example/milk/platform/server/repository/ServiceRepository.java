@@ -8,10 +8,8 @@ import example.milk.platform.server.service.Service;
 
 import example.milk.platform.server.service.subservice.*;
 import example.milk.platform.server.service.subservice.SubService;
-import example.milk.platform.server.userservice.AppliedElement;
-import example.milk.platform.server.userservice.Appliment;
-import example.milk.platform.server.userservice.Payment;
-import example.milk.platform.server.userservice.UserService;
+import example.milk.platform.server.userservice.*;
+import example.milk.platform.server.userservice.ElementType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -149,25 +147,26 @@ public class ServiceRepository {
             Appliment appliment = request.getAppliment();
             Payment payment = request.getPayment();
             List<AppliedElement> appliedElementList = request.getAppliedElementList();
+            List<List<Checkedbox>> checkedboxLists = request.getCheckedboxLists();
 
             int size = appliedElementList.size();
-//            int checkboxCnt = 0;
+            int checkboxCnt = 0;
             for (int i = 0; i < size; i++) {
                 AppliedElement appliedElement = appliedElementList.get(i);
 
-//                ElementType elementType = appliedElement.getElementType();
-//                if ((elementType != null) && (elementType.equals(example.milk.platform.server.userservice.ElementType))) {
-//                    List<Checkbox> checkboxList = checkboxLists.get(checkboxCnt);
-//
-//                    int checkboxSize = checkboxList.size();
-//                    for (int j = 0; j < checkboxSize; j++) {
-//                        Checkbox checkbox = checkboxList.get(j);
-//                        checkbox.setFormElement(formElement);
-//                        em.persist(checkbox);
-//                    }
-//
-//                    checkboxCnt++;
-//                }
+                ElementType elementType = appliedElement.getElementType();
+                if ((elementType != null) && (elementType.equals(ElementType.CHECKBOX))) {
+                    List<Checkedbox> checkedboxList = checkedboxLists.get(checkboxCnt);
+
+                    int checkedboxListSize = checkedboxList.size();
+                    for (int j = 0; j < checkedboxListSize; j++) {
+                        Checkedbox checkedbox = checkedboxList.get(j);
+                        checkedbox.setAppliedElement(appliedElement);
+                        em.persist(checkedbox);
+                    }
+
+                    checkboxCnt++;
+                }
                 appliedElement.setAppliment(appliment);
                 em.persist(appliedElement);
             }
