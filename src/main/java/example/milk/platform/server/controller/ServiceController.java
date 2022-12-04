@@ -5,12 +5,14 @@ import example.milk.platform.server.packet.responsebody.*;
 
 import example.milk.platform.server.service.Service;
 import example.milk.platform.server.service.ServiceManager;
-import example.milk.platform.server.service.subservice.SubService;
+import example.milk.platform.server.service.subservice.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -94,4 +96,24 @@ public class ServiceController {
 
         return service.saveSubService(request, serviceManager.getServiceRepository());
     }
+
+//    @GetMapping("/get/json")
+//    public CreateSubServiceRequestBody createSubServiceRequestBody() {
+//
+//        SubService subService = new SubService("우유정기배달", "우유 정기 배달해드림", (short) 1);
+//
+//        Form form = new Form((short )1, 0);
+//
+//        List<FormElement> formElementList = new ArrayList<>();
+//        formElementList.add(new FormElement(1, ElementType.INFORMATION, "원하는 배달 요일을 써주세요"));
+//        formElementList.add(new FormElement(2, ElementType.INPUT, InputType.TEXT, (short) 1));
+//        formElementList.add(new FormElement(3, ElementType.PRODUCT, "흰우유", "고소함", 1800));
+//        formElementList.add(new FormElement(4, ElementType.PRODUCT, "초코우유", "달달함", 2000));
+//        formElementList.add(new FormElement(5, ElementType.PRODUCT, "딸기우유", "상큼함", 2000));
+//
+//        CreateSubServiceRequestBody requestBody = new CreateSubServiceRequestBody(
+//                9L, subService, form, formElementList, null);
+//
+//        return requestBody;
+//    }
 }

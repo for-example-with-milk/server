@@ -23,10 +23,14 @@ public class Checkbox {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "idx")
+    int elementIdx;
+
     public Checkbox() {}
 
-    public Checkbox(String name) {
+    public Checkbox(String name, int elementIdx) {
         this.name = name;
+        this.elementIdx = elementIdx;
     }
 
     public void setFormElement(FormElement formElement) {
