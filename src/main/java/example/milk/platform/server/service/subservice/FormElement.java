@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 @Table(name = "form_element")
 public class FormElement {
     @Id
@@ -17,8 +17,8 @@ public class FormElement {
     @Column(name = "form_element_id")
     private Long id;
 
-    @Column(name = "order")
-    private int order;
+    @Column(name = "idx")
+    private int idx;
 
     @Column(name = "element_type")
     @Enumerated(EnumType.STRING)

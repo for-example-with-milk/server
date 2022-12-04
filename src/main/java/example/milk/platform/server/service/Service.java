@@ -49,12 +49,10 @@ public class Service {
     protected Service() {
     }
 
-<<<<<<< HEAD
-=======
     public int apply() {
         return 0;
     }
->>>>>>> origin
+
 
     public SubService getSubService(Long id) {
         for (SubService subService : subServiceList) {
