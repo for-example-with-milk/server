@@ -3,9 +3,9 @@ package example.milk.platform.server.service.subservice;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,6 +35,9 @@ public class FormElement {
     @Column(name = "prod_description")
     private String prodDescription;
 
+    @Column(name = "prod_price")
+    private int prodPrice;
+
     @Column(name = "info_text")
     private String infoText;
 
@@ -51,4 +54,51 @@ public class FormElement {
     @JsonManagedReference
     @OneToMany(mappedBy = "formElement")
     private List<Checkbox> checkboxList;
+
+    public FormElement() {}
+
+    // Information Type
+    public FormElement(int idx, ElementType elementType, String infoText) {
+        this.idx = idx;
+        this.elementType = elementType;
+        this.infoText = infoText;
+    }
+
+    // Product Type
+    public FormElement(int idx, ElementType elementType, String prodName, String prodDescription, int prodPrice) {
+        this.idx = idx;
+        this.elementType = elementType;
+        this.prodName = prodName;
+        this.prodDescription = prodDescription;
+        this.prodPrice = prodPrice;
+    }
+
+    // Intergrated Input Type
+    public FormElement(int idx, ElementType elementType, InputType inputType, short isRequireResponse) {
+        this.idx = idx;
+        this.elementType = elementType;
+        this.inputType = inputType;
+        this.isRequireResponse = isRequireResponse;
+    }
+
+    // Checkbox Input Type
+    public FormElement(int idx, ElementType elementType, InputType inputType, short isRequireResponse, short isMultipleChoice) {
+        this.idx = idx;
+        this.elementType = elementType;
+        this.inputType = inputType;
+        this.isRequireResponse = isRequireResponse;
+        this.isMultipleChoice = isMultipleChoice;
+    }
+
+    public void setForm(Form form) {
+        this.form = form;
+        form.setFormElement(this);
+    }
+
+    public void setCheckbox(Checkbox checkbox) {
+        if (this.checkboxList == null)
+            this.checkboxList = new ArrayList<>();
+
+        this.checkboxList.add(checkbox);
+    }
 }

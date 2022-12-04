@@ -3,6 +3,9 @@ package example.milk.platform.server.service;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import example.milk.platform.server.packet.requestbody.CreateSubServiceRequestBody;
+import example.milk.platform.server.packet.responsebody.CreateSubServiceResponseBody;
 import example.milk.platform.server.repository.ServiceRepository;
 import example.milk.platform.server.service.subservice.*;
 import example.milk.platform.server.userservice.UserService;
@@ -45,18 +48,34 @@ public class Service {
     @JsonManagedReference
     private List<UserService> userServiceList = new ArrayList<>();
 
-    //method
     protected Service() {
     }
 
-    public int apply() {
-        return 0;
+    public Service(String name, String icoUrl, String lore, String city, String categoryList, String account) {
+        this.name = name;
+        this.icoUrl = icoUrl;
+        this.lore = lore;
+        this.city = city;
+        this.categoryList = categoryList;
+        this.account = account;
+    }
+
+    public CreateSubServiceResponseBody saveSubService(CreateSubServiceRequestBody resquest, ServiceRepository serviceRepository) {
+
+        boolean result = serviceRepository.saveSubService(this, resquest);
+        System.out.println(result);
+        if (result == false)
+            return new CreateSubServiceResponseBody(2, "하위서비스를 저장하지 못했습니다.");
+
+        return new CreateSubServiceResponseBody(0, "성공했습니다.");
     }
 
 
     public SubService getSubService(Long id) {
+        System.out.println();
         for (SubService subService : subServiceList) {
-            if (subService.getId() == id)
+            System.out.printf("%d\n", subService.getId());
+            if (subService.getId().equals(id))
                 return subService;
         }
 

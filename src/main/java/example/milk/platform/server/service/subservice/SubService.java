@@ -3,6 +3,7 @@ package example.milk.platform.server.service.subservice;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import example.milk.platform.server.service.Service;
 import lombok.Getter;
@@ -38,10 +39,18 @@ public class SubService {
 
     }
 
-    public SubService(Service service, String name, String lore, short isRegularPaymentState) {
-        this.service = service;
+    public SubService(String name, String lore, short isRegularPaymentState) {
         this.name = name;
         this.lore = lore;
         this.isRegularPayment = isRegularPaymentState;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+        service.getSubServiceList().add(this);
+    }
+
+    public void setForm(Form form) {
+        this.form = form;
     }
 }

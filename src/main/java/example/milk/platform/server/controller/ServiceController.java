@@ -5,15 +5,15 @@ import example.milk.platform.server.packet.responsebody.*;
 import example.milk.platform.server.service.Service;
 import example.milk.platform.server.service.ServiceManager;
 import example.milk.platform.server.service.subservice.SubService;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -61,10 +61,12 @@ public class ServiceController {
         return getServiceListResponseBody;
     }
 
+
     @PostMapping("/serv/getUserlist")
     public GetUserServiceListResponseBody findUserServiceById(@RequestBody GetUserServiceListRequestBody request){
         GetUserServiceListResponseBody getServiceListResponseBody;
         List<Service> serviceList = serviceManager.findlistByUserId(request.getToken());
+
         if(serviceList == null){
             getServiceListResponseBody = new GetUserServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
         }
@@ -87,6 +89,46 @@ public class ServiceController {
         return getServiceListResponseBody;
     }
 
+    @PostMapping("/serv/getSublist")
+    public GetSubServiceListResponsebody findUserServiceById(@RequestBody GetSubServiceListRequestbody request){
+        GetSubServiceListResponsebody getServiceListResponseBody;
+        List<SubService> serviceList = serviceManager.findSubServicelistByServiceid(request.getId());
+        if(serviceList == null){
+            getServiceListResponseBody = new GetSubServiceListResponsebody(1,"서비스가 존재하지 않습니다.", null);
+        }
+        else {
+            getServiceListResponseBody = new GetSubServiceListResponsebody(0,"서비스 찾기 성공", serviceList);
+        }
+        return getServiceListResponseBody;
+    }
 
+    @PostMapping("/subserv/create")
+    public CreateSubServiceResponseBody createSubService(@RequestBody CreateSubServiceRequestBody request) {
+        Service service = serviceManager.findServiceById(request.getServiceId());
+        if (service == null) {
+            return new CreateSubServiceResponseBody(1, "서비스가 존재하지 않습니다.");
+        }
 
+        return service.saveSubService(request, serviceManager.getServiceRepository());
+    }
+
+//    @GetMapping("/get/json")
+//    public CreateSubServiceRequestBody createSubServiceRequestBody() {
+//
+//        SubService subService = new SubService("우유정기배달", "우유 정기 배달해드림", (short) 1);
+//
+//        Form form = new Form((short )1, 0);
+//
+//        List<FormElement> formElementList = new ArrayList<>();
+//        formElementList.add(new FormElement(1, ElementType.INFORMATION, "원하는 배달 요일을 써주세요"));
+//        formElementList.add(new FormElement(2, ElementType.INPUT, InputType.TEXT, (short) 1));
+//        formElementList.add(new FormElement(3, ElementType.PRODUCT, "흰우유", "고소함", 1800));
+//        formElementList.add(new FormElement(4, ElementType.PRODUCT, "초코우유", "달달함", 2000));
+//        formElementList.add(new FormElement(5, ElementType.PRODUCT, "딸기우유", "상큼함", 2000));
+//
+//        CreateSubServiceRequestBody requestBody = new CreateSubServiceRequestBody(
+//                9L, subService, form, formElementList, null);
+//
+//        return requestBody;
+//    }
 }

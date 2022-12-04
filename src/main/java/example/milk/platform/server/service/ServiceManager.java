@@ -37,6 +37,11 @@ public class ServiceManager {
     public Service findServiceById(Long serviceId) {
         Optional<Service> service = serviceRepository.findById(serviceId);
         return service.orElse(null);
+
+    public example.milk.platform.server.service.Service findServiceById(Long serviceId) {
+        example.milk.platform.server.service.Service service = serviceRepository.findById(serviceId).get();
+        return service;
+
     }
 
     public List<Service> findlistByTag(String tag,String city){
@@ -52,6 +57,19 @@ public class ServiceManager {
     public List<Service> findlistByProviderId(String id){
         Optional<List<Service>> serviceList = serviceRepository.findListByProviderId(id);
         List<Service> result = serviceList.orElse(null);
+
+        if ( result == null){
+            return null;
+        }
+        else{
+            return result;
+        }
+    }
+
+    public List<SubService> findSubServicelistByServiceid(Long serviceId){
+        List<SubService> result = serviceRepository
+                .findSubServiceListByServiceId(serviceId)
+                .orElse(null);
         if ( result == null){
             return null;
         }
