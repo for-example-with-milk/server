@@ -2,6 +2,7 @@ package example.milk.platform.server.repository;
 
 import example.milk.platform.server.account.ServiceProvider;
 import example.milk.platform.server.account.ServiceUser;
+import example.milk.platform.server.account.User;
 import example.milk.platform.server.packet.requestbody.SignUpProvRequestBody;
 import example.milk.platform.server.packet.requestbody.SignUpUserRequestBody;
 import example.milk.platform.server.packet.responsebody.GetNameResponseBody;
@@ -89,6 +90,17 @@ public class AccountRepository {
         TypedQuery<String> query = em.createQuery(
                 "select providerName from ServiceProvider where id = :parm", String.class);
         query.setParameter("parm", id);
+
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public User findUserById(String userId) {
+        TypedQuery<User> query = em.createQuery("select u from User as u where id = :parm", User.class);
+        query.setParameter("parm", userId);
 
         try {
             return query.getSingleResult();

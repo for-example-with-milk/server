@@ -11,15 +11,15 @@ import java.util.List;
 
 @Getter
 public class ApplimentRequestBody {
-    private User user;
+    private String token;
     private Long subServiceId;
     private Appliment appliment;
     private Payment payment;
     private List<AppliedElement> appliedElementList;
     private List<List<Checkedbox>> checkedboxLists;
 
-    public ApplimentRequestBody(User user, Long subServiceId, Appliment appliment, Payment payment, List<AppliedElement> appliedElementList, List<List<Checkedbox>> checkedboxLists) {
-        this.user = user;
+    public ApplimentRequestBody(String token, Long subServiceId, Appliment appliment, Payment payment, List<AppliedElement> appliedElementList, List<List<Checkedbox>> checkedboxLists) {
+        this.token = token;
         this.subServiceId = subServiceId;
         this.appliment = appliment;
         this.payment = payment;

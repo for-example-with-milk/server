@@ -1,5 +1,6 @@
 package example.milk.platform.server.controller;
 
+import example.milk.platform.server.account.AccountManager;
 import example.milk.platform.server.account.User;
 import example.milk.platform.server.packet.requestbody.*;
 import example.milk.platform.server.packet.responsebody.*;
@@ -25,6 +26,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ServiceController {
     private final ServiceManager serviceManager;
+
+    private final AccountManager accountManager;
 
     @PostMapping("/serv/create")
     public ServiceCreateResponseBody createService(@RequestBody ServiceCreateRequestBody request) {
@@ -94,12 +97,16 @@ public class ServiceController {
 
     @PostMapping("/appliment")
     public ApplimentResponseBody apply(@RequestBody ApplimentRequestBody request) {
+        User user = accountManager.getUser(request.getToken());
         Service service = serviceManager.findServiceBySubServiceId(request.getSubServiceId());
         if (service == null) {
             return new ApplimentResponseBody(1, "서비스 혹은 하위서비스가 없습니다.");
         }
+        if (user == null) {
+            return new ApplimentResponseBody(2, "이용자가 없습니다.");
+        }
 
-        return service.saveApply(request, serviceManager.getServiceRepository());
+        return service.saveApply(request, serviceManager.getServiceRepository(), user);
     }
 
 //    @GetMapping("/get/json")

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import example.milk.platform.server.account.User;
 import example.milk.platform.server.packet.requestbody.ApplimentRequestBody;
 import example.milk.platform.server.packet.requestbody.CreateSubServiceRequestBody;
 import example.milk.platform.server.packet.responsebody.ApplimentResponseBody;
@@ -89,12 +90,12 @@ public class Service {
         return null;
     }
 
-    public ApplimentResponseBody saveApply(ApplimentRequestBody request, ServiceRepository serviceRepository) {
-        boolean result = serviceRepository.saveApply(request, this);
+    public ApplimentResponseBody saveApply(ApplimentRequestBody request, ServiceRepository serviceRepository, User user) {
+        boolean result = serviceRepository.saveApply(request, this, user);
 
         System.out.println(result);
         if (result == false)
-            return new ApplimentResponseBody(2, "저장하는 데 실패했습니다.");
+            return new ApplimentResponseBody(3, "저장하는 데 실패했습니다.");
 
         return new ApplimentResponseBody(0, "성공했습니다.");
     }

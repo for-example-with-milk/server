@@ -141,9 +141,9 @@ public class ServiceRepository {
         return true;
     }
 
-    public boolean saveApply(ApplimentRequestBody request, Service service) {
+    public boolean saveApply(ApplimentRequestBody request, Service service, User user) {
         try {
-            UserService userService = new UserService(service, request.getUser(), (short) 1, null, request.getAppliment());
+            UserService userService = new UserService(service, user, (short) 1, null, request.getAppliment());
             Appliment appliment = request.getAppliment();
             Payment payment = request.getPayment();
             List<AppliedElement> appliedElementList = request.getAppliedElementList();

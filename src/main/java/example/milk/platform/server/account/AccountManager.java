@@ -85,4 +85,8 @@ public class AccountManager {
 
         return new GetProvNameResponseBody(0, "", providerName);
     }
+
+    public User getUser(String userId) {
+        return accountRepository.findUserById(userId);
+    }
 }
