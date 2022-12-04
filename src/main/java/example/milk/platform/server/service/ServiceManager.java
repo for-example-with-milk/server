@@ -43,7 +43,7 @@ public class ServiceManager {
         return serviceRepository.findServiceBySubServiceId(subServiceId);
     }
 
-    public List<Service> findlistByTag(String tag){
+    public List<Service> findListByTag(String tag){
         Optional<List<Service>> serviceList = serviceRepository.findListByTag(tag);
         List<Service> result = serviceList.orElse(null);
         if ( result == null){

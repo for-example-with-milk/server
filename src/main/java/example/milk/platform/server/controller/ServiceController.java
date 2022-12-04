@@ -42,9 +42,9 @@ public class ServiceController {
     }
 
     @PostMapping("/serv/getlist")
-    public GetServiceListResponseBody findServiceListBytag(@RequestBody GetServiceListRequestBody request){
+    public GetServiceListResponseBody findServiceListByTag(@RequestBody GetServiceListRequestBody request){
         GetServiceListResponseBody getServiceListResponseBody;
-        List<Service> serviceList = serviceManager.findlistByTag(request.getTag());
+        List<Service> serviceList = serviceManager.findListByTag(request.getTag());
         if(serviceList == null){
             getServiceListResponseBody = new GetServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
         }
