@@ -49,6 +49,9 @@ public class Service {
     protected Service() {
     }
 
+    public int apply() {
+        return 0;
+    }
 
     public SubService getSubService(Long id) {
         for (SubService subService : subServiceList) {
