@@ -6,19 +6,19 @@ import example.milk.platform.server.packet.requestbody.GetServiceRequestBody;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
 import example.milk.platform.server.packet.responsebody.GetProvServiceListResponseBody;
 import example.milk.platform.server.packet.responsebody.GetServiceListResponseBody;
+import example.milk.platform.server.packet.requestbody.CreateSubServiceRequestBody;
+import example.milk.platform.server.packet.responsebody.CreateSubServiceResponseBody;
+
 import example.milk.platform.server.packet.responsebody.GetServiceResponseBody;
 import example.milk.platform.server.packet.responsebody.ServiceCreateResponseBody;
 import example.milk.platform.server.service.Service;
 import example.milk.platform.server.service.ServiceManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -79,6 +79,14 @@ public class ServiceController {
         return getServiceListResponseBody;
     }
 
+    @PostMapping("/subserv/create")
+    public CreateSubServiceResponseBody createSubService(@RequestBody CreateSubServiceRequestBody request) {
+        Service service = serviceManager.findServiceById(request.getServiceId());
 
+        if (service == null) {
+            return new CreateSubServiceResponseBody(1, "서비스가 존재하지 않습니다.");
+        }
 
+        return service.saveSubService(request, serviceManager.getServiceRepository());
+    }
 }

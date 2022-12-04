@@ -1,19 +1,23 @@
 package example.milk.platform.server.repository;
 
 import example.milk.platform.server.account.User;
+import example.milk.platform.server.packet.requestbody.CreateSubServiceRequestBody;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
 import example.milk.platform.server.service.Service;
+import example.milk.platform.server.service.subservice.*;
 import example.milk.platform.server.userservice.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class ServiceRepository {
 
     private final EntityManager em;
@@ -55,7 +59,7 @@ public class ServiceRepository {
     }
 
     public Optional<Service> findById(Long id) {
-        Service service = em.find(Service.class,id);
+        Service service = em.find(Service.class, id);
         return  Optional.ofNullable(service);
     }
 
@@ -80,6 +84,59 @@ public class ServiceRepository {
         return true;
     }
 
+    public boolean saveSubService(Service service, CreateSubServiceRequestBody resquest) {
+        try {
+            SubService subService = resquest.getSubService();
+            Form form = resquest.getForm();
+            List<FormElement> formElementList = resquest.getFormElementList();
+            List<List<Checkbox>> checkboxLists = resquest.getCheckboxLists();
+
+            System.out.println("여기 됨");
+            int size = formElementList.size();
+            int checkboxCnt = 0;
+            for (int i = 0; i < size; i++) {
+                System.out.println("여기 됨!");
+                FormElement formElement = formElementList.get(i);
+
+                InputType inputType = formElement.getInputType();
+
+                System.out.println("여기 됨!!");
+                if ((inputType != null) && (inputType.equals(InputType.CHECKBOX))) {
+                    System.out.println("여기 됨!!!");
+                    List<Checkbox> checkboxList = checkboxLists.get(checkboxCnt);
+
+                    System.out.println("여기 됨!!!!");
+                    int checkboxSize = checkboxList.size();
+                    for (int j = 0; j < checkboxSize; j++) {
+                        Checkbox checkbox = checkboxList.get(j);
+
+                        System.out.println("여기 됨!!!! !");
+                        checkbox.setFormElement(formElement);
+                        em.persist(checkbox);
+                        System.out.println("여기 됨!!!! !!");
+                    }
+
+                    checkboxCnt++;
+                }
+                System.out.println("여기됨!!!! !!!");
+
+                formElement.setForm(form);
+                System.out.println("여기됨!!!! !!!!");
+
+                em.persist(formElement);
+                System.out.println("여기됨!!!! !!!! !");
+            }
+            form.setSubService(subService);
+            em.persist(form);
+
+            subService.setService(service);
+            em.persist(subService);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
 
     public UserService findUserServiceByUserId(Service service, String userId) {
         User user;
@@ -102,4 +159,5 @@ public class ServiceRepository {
             return null;
         }
     }
+
 }

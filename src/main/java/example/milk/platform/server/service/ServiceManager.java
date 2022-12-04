@@ -3,7 +3,6 @@ package example.milk.platform.server.service;
 import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
 import example.milk.platform.server.packet.responsebody.ServiceCreateResponseBody;
 import example.milk.platform.server.repository.ServiceRepository;
-import example.milk.platform.server.userservice.UserService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,8 +33,8 @@ public class ServiceManager {
     }
 
     public example.milk.platform.server.service.Service findServiceById(Long serviceId) {
-        Optional<example.milk.platform.server.service.Service> service = serviceRepository.findById(serviceId);
-        return service.orElse(null);
+        example.milk.platform.server.service.Service service = serviceRepository.findById(serviceId).get();
+        return service;
     }
 
     public List<example.milk.platform.server.service.Service> findlistByTag(String tag,String city){
