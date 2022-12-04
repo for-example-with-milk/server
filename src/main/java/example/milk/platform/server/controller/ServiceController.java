@@ -1,16 +1,7 @@
 package example.milk.platform.server.controller;
 
-import example.milk.platform.server.packet.requestbody.GetProvServiceListRequestBody;
-import example.milk.platform.server.packet.requestbody.GetServiceListRequestBody;
-import example.milk.platform.server.packet.requestbody.GetServiceRequestBody;
-import example.milk.platform.server.packet.requestbody.ServiceCreateRequestBody;
-import example.milk.platform.server.packet.responsebody.GetProvServiceListResponseBody;
-import example.milk.platform.server.packet.responsebody.GetServiceListResponseBody;
-import example.milk.platform.server.packet.requestbody.CreateSubServiceRequestBody;
-import example.milk.platform.server.packet.responsebody.CreateSubServiceResponseBody;
-
-import example.milk.platform.server.packet.responsebody.GetServiceResponseBody;
-import example.milk.platform.server.packet.responsebody.ServiceCreateResponseBody;
+import example.milk.platform.server.packet.requestbody.*;
+import example.milk.platform.server.packet.responsebody.*;
 
 import example.milk.platform.server.service.Service;
 import example.milk.platform.server.service.ServiceManager;

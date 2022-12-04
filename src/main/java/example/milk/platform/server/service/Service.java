@@ -35,8 +35,7 @@ public class Service {
     private String categoryList;
     @Column(name = "account")
     private String account;
-
-    @JsonManagedReference
+    
     @OneToMany(mappedBy = "service")
     @JsonManagedReference
     private List<SubService> subServiceList = new ArrayList<>();
