@@ -68,7 +68,7 @@ public class ServiceRepository {
     }
 
     public Service findServiceBySubServiceId(Long subServiceId) {
-        TypedQuery<Service> query = em.createQuery("select s.service from SubService as s where sub_service_id = :parm", Service.class);
+        TypedQuery<Service> query = em.createQuery("select s.service from SubService as s where s.id = :parm", Service.class);
         query.setParameter("parm", subServiceId);
 
         try {

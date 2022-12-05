@@ -23,6 +23,7 @@ public class UserService {
     @JoinColumn(name = "service_id")
     private Service service;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

@@ -85,13 +85,34 @@ public class ServiceController {
         return getServiceListResponseBody;
     }
 
+    @PostMapping("/serv/getSubServiceList")
+    public GetSubServiceListResponsebody findSubServiceListByServiceId(@RequestBody GetSubServiceListRequestbody request){
+        GetSubServiceListResponsebody getSubServiceListResponsebody;
+
+        Service service = serviceManager.findServiceById(request.getId());
+        List<SubService> serviceList = serviceManager.findSubServicelistByServiceid(request.getId());
+
+        if(serviceList == null && service == null){
+            getSubServiceListResponsebody = new GetSubServiceListResponsebody(service,1,"서비스와 서브서비스 리스트가 존재하지 않습니다.", null);
+        }
+        else if (serviceList == null && service != null){
+            getSubServiceListResponsebody = new GetSubServiceListResponsebody(service,2,"서비스가 존재하지 않습니다.",serviceList);
+        }
+        else if (serviceList != null && service == null){
+            getSubServiceListResponsebody = new GetSubServiceListResponsebody(service,3,"서브서비스 리스트가 존재하지 않습니다.",serviceList);
+        }
+        else{
+            getSubServiceListResponsebody = new GetSubServiceListResponsebody(service,0,"서비스 찾기 성공",serviceList);
+        }
+        return getSubServiceListResponsebody;
+    }
+
     @PostMapping("/subserv/create")
     public CreateSubServiceResponseBody createSubService(@RequestBody CreateSubServiceRequestBody request) {
         Service service = serviceManager.findServiceById(request.getServiceId());
         if (service == null) {
             return new CreateSubServiceResponseBody(1, "서비스가 존재하지 않습니다.");
         }
-
         return service.saveSubService(request, serviceManager.getServiceRepository());
     }
 
@@ -105,55 +126,6 @@ public class ServiceController {
         if (user == null) {
             return new ApplimentResponseBody(2, "이용자가 없습니다.");
         }
-
         return service.saveApply(request, serviceManager.getServiceRepository(), user);
     }
-
-//    @GetMapping("/get/json")
-//    public CreateSubServiceRequestBody createSubServiceRequestBody() {
-//
-//        SubService subService = new SubService("우유정기배달", "우유 정기 배달해드림", (short) 1);
-//
-//        Form form = new Form((short )1, 0);
-//
-//        List<FormElement> formElementList = new ArrayList<>();
-//        formElementList.add(new FormElement(1, ElementType.INFORMATION, "원하는 배달 요일을 써주세요"));
-//        formElementList.add(new FormElement(2, ElementType.INPUT, InputType.TEXT, (short) 1));
-//        formElementList.add(new FormElement(3, ElementType.PRODUCT, "흰우유", "고소함", 1800));
-//        formElementList.add(new FormElement(4, ElementType.PRODUCT, "초코우유", "달달함", 2000));
-//        formElementList.add(new FormElement(5, ElementType.PRODUCT, "딸기우유", "상큼함", 2000));
-//
-//        CreateSubServiceRequestBody requestBody = new CreateSubServiceRequestBody(
-//                9L, subService, form, formElementList, null);
-//
-//        return requestBody;
-//    }
-
-//    @GetMapping("/getjson")
-//    public ApplimentRequestBody applimentRequestBody() {
-//
-//        User user = new User("id1", "aa", "usr1", "000-0000-0000");
-//
-//        LocalDateTime time = LocalDateTime.now();
-//
-//        Appliment appliment = new Appliment("우유 배달", time);
-//
-//        Payment payment = new Payment(time, "카드", 8000);
-//
-//        List<AppliedElement> appliedElementList = new ArrayList<>();
-//        appliedElementList.add(new AppliedElement((short) 1, example.milk.platform.server.userservice.ElementType.TEXT, "대구 북구 경진로12길 xx, 201호"));
-//        appliedElementList.add(new AppliedElement((short) 3, example.milk.platform.server.userservice.ElementType.PRODUCT, "초코우유", 2000, 4));
-//
-//
-//        ApplimentRequestBody requestBody = new ApplimentRequestBody(
-//                user,
-//                9L,
-//                appliment,
-//                payment,
-//                appliedElementList,
-//                null
-//                );
-//
-//        return requestBody;
-//    }
 }

@@ -13,11 +13,13 @@ import java.util.List;
 @Builder
 public class GetSubServiceListResponsebody {
 
+    private Service service;
     private int result;
     private String message;
     private List<SubService> subServiceList;
 
-    public GetSubServiceListResponsebody(int result, String message, List<SubService> subServiceList) {
+    public GetSubServiceListResponsebody(Service service, int result, String message, List<SubService> subServiceList) {
+        this.service = service;
         this.result = result;
         this.message = message;
         this.subServiceList = subServiceList;
