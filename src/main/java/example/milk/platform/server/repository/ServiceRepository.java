@@ -171,8 +171,10 @@ public class ServiceRepository {
             appliment.setUserService(userService);
             em.persist(appliment);
 
-            payment.setAppliment(appliment);
-            em.persist(payment);
+            if (payment != null) {
+                payment.setAppliment(appliment);
+                em.persist(payment);
+            }
 
             userService.setService(service);
             em.persist(userService);
