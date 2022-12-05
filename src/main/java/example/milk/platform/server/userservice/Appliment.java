@@ -35,12 +35,6 @@ public class Appliment {
     @OneToMany(mappedBy = "appliment")
     List<AppliedElement> appliedElementList;
 
-    protected Appliment() {}
-    public Appliment(String subServiceName, LocalDateTime time) {
-        this.subServiceName = subServiceName;
-        this.time = time;
-    }
-
     public void setAppliedElement(AppliedElement appliedElement) {
         if (this.appliedElementList == null)
             this.appliedElementList = new ArrayList<>();

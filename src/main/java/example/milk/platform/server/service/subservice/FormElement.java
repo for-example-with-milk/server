@@ -55,41 +55,6 @@ public class FormElement {
     @OneToMany(mappedBy = "formElement")
     private List<Checkbox> checkboxList;
 
-    public FormElement() {}
-
-    // Information Type
-    public FormElement(int idx, ElementType elementType, String infoText) {
-        this.idx = idx;
-        this.elementType = elementType;
-        this.infoText = infoText;
-    }
-
-    // Product Type
-    public FormElement(int idx, ElementType elementType, String prodName, String prodDescription, int prodPrice) {
-        this.idx = idx;
-        this.elementType = elementType;
-        this.prodName = prodName;
-        this.prodDescription = prodDescription;
-        this.prodPrice = prodPrice;
-    }
-
-    // Intergrated Input Type
-    public FormElement(int idx, ElementType elementType, InputType inputType, short isRequireResponse) {
-        this.idx = idx;
-        this.elementType = elementType;
-        this.inputType = inputType;
-        this.isRequireResponse = isRequireResponse;
-    }
-
-    // Checkbox Input Type
-    public FormElement(int idx, ElementType elementType, InputType inputType, short isRequireResponse, short isMultipleChoice) {
-        this.idx = idx;
-        this.elementType = elementType;
-        this.inputType = inputType;
-        this.isRequireResponse = isRequireResponse;
-        this.isMultipleChoice = isMultipleChoice;
-    }
-
     public void setForm(Form form) {
         this.form = form;
         form.setFormElement(this);

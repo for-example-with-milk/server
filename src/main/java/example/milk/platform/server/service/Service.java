@@ -1,8 +1,5 @@
 package example.milk.platform.server.service;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import example.milk.platform.server.account.User;
 import example.milk.platform.server.packet.requestbody.ApplimentRequestBody;
@@ -78,16 +75,6 @@ public class Service {
             return new CreateSubServiceResponseBody(2, "하위서비스를 저장하지 못했습니다.");
 
         return new CreateSubServiceResponseBody(0, "성공했습니다.");
-    }
-
-
-    public SubService getSubService(Long id) {
-        for (SubService subService : subServiceList) {
-            if (subService.getId().equals(id))
-                return subService;
-        }
-
-        return null;
     }
 
     public ApplimentResponseBody saveApply(ApplimentRequestBody request, ServiceRepository serviceRepository, User user) {

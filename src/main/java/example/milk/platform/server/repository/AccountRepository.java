@@ -5,7 +5,6 @@ import example.milk.platform.server.account.ServiceUser;
 import example.milk.platform.server.account.User;
 import example.milk.platform.server.packet.requestbody.SignUpProvRequestBody;
 import example.milk.platform.server.packet.requestbody.SignUpUserRequestBody;
-import example.milk.platform.server.packet.responsebody.GetNameResponseBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -7,19 +7,11 @@ import example.milk.platform.server.packet.responsebody.*;
 import example.milk.platform.server.service.Service;
 import example.milk.platform.server.service.ServiceManager;
 import example.milk.platform.server.service.subservice.*;
-import example.milk.platform.server.userservice.AppliedElement;
-import example.milk.platform.server.userservice.Appliment;
-import example.milk.platform.server.userservice.ElementType;
-import example.milk.platform.server.userservice.Payment;
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -60,7 +52,7 @@ public class ServiceController {
     @PostMapping("/serv/getprovlist")
     public GetProvServiceListResponseBody findProvServiceById(@RequestBody GetProvServiceListRequestBody request){
         GetProvServiceListResponseBody getServiceListResponseBody;
-        List<Service> serviceList = serviceManager.findlistByProviderId(request.getToken());
+        List<Service> serviceList = serviceManager.findListByProviderId(request.getToken());
         if(serviceList == null){
             getServiceListResponseBody = new GetProvServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
         }
@@ -74,7 +66,7 @@ public class ServiceController {
     @PostMapping("/serv/getUserlist")
     public GetUserServiceListResponseBody findUserServiceById(@RequestBody GetUserServiceListRequestBody request){
         GetUserServiceListResponseBody getServiceListResponseBody;
-        List<Service> serviceList = serviceManager.findlistByUserId(request.getToken());
+        List<Service> serviceList = serviceManager.findListByUserId(request.getToken());
 
         if(serviceList == null){
             getServiceListResponseBody = new GetUserServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
@@ -90,7 +82,7 @@ public class ServiceController {
         GetSubServiceListResponsebody getSubServiceListResponsebody;
 
         Service service = serviceManager.findServiceById(request.getId());
-        List<SubService> serviceList = serviceManager.findSubServicelistByServiceid(request.getId());
+        List<SubService> serviceList = serviceManager.findSubServiceListByServiceid(request.getId());
 
         if(serviceList == null && service == null){
             getSubServiceListResponsebody = new GetSubServiceListResponsebody(service,1,"서비스와 서브서비스 리스트가 존재하지 않습니다.", null);
