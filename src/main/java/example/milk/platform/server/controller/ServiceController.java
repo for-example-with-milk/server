@@ -55,7 +55,7 @@ public class ServiceController {
         List<Service> serviceList = serviceManager.findListByProviderId(request.getToken());
         System.out.println(serviceList.size());
 
-        if(serviceList == null){
+        if (serviceList == null){
             getServiceListResponseBody = new GetProvServiceListResponseBody(1,"서비스가 존재하지 않습니다.", null);
         }
         else {

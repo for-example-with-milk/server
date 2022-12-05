@@ -53,10 +53,9 @@ public class ServiceRepository {
     }
 
     public Optional<List<Service>> findListByUserId(String userId){
-        List<Service>
-        serviceList = em.createQuery( "SELECT us.service FROM UserService us WHERE us.id=(SELECT a.userServiceId FROM Appliment a WHERE a.userServiceId = (SELECT u.service.id FROM UserService u WHERE u.user.id = :userId))", Service.class)
-                .setParameter("userId",userId)
-                .getResultList();
+        List<Service> serviceList = em.createQuery("SELECT us2.service FROM UserService us2 WHERE us2.id IN (SELECT a.userServiceId FROM Appliment a WHERE a.userServiceId IN (SELECT u.id FROM UserService u WHERE u.user.id = :userId))", Service.class)
+                        .setParameter("userId",userId).getResultList();
+
         return Optional.ofNullable(serviceList);
     }
 
@@ -95,6 +94,7 @@ public class ServiceRepository {
                 "SELECT m FROM SubService m WHERE m.service.id = :serviceId", SubService.class)
                 .setParameter("serviceId",serviceId)
                 .getResultList();
+
         return Optional.ofNullable(subServiceList);
     }
 
@@ -142,6 +142,7 @@ public class ServiceRepository {
                 formElement.setForm(form);
                 em.persist(formElement);
             }
+
             form.setSubService(subService);
             em.persist(form);
 

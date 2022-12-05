@@ -71,7 +71,6 @@ public class Service {
     }
 
     public CreateSubServiceResponseBody saveSubService(CreateSubServiceRequestBody request, ServiceRepository serviceRepository) {
-
         boolean result = serviceRepository.saveSubService(this, request);
         System.out.println(result);
         if (result == false)
