@@ -30,14 +30,6 @@ public class Payment {
     @Column(name = "amount")
     private int amount;
 
-    protected Payment() {}
-
-    public Payment(LocalDateTime time, String type, int amount) {
-        this.time = time;
-        this.type = type;
-        this.amount = amount;
-    }
-
     public void setAppliment(Appliment appliment) {
         this.appliment = appliment;
         appliment.setPayment(this);

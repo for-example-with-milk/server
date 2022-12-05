@@ -34,13 +34,6 @@ public class Form {
     @Column(name = "service_price")
     private int servicePrice;
 
-    protected Form() {}
-
-    public Form(short isPurchase, int servicePrice) {
-        this.isPurchase = isPurchase;
-        this.servicePrice = servicePrice;
-    }
-
     public void setSubService(SubService subService) {
         this.subService = subService;
         subService.setForm(this);

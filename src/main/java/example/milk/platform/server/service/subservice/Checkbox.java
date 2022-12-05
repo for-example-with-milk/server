@@ -27,13 +27,6 @@ public class Checkbox {
     @Column(name = "idx")
     int elementIdx;
 
-    public Checkbox() {}
-
-    public Checkbox(String name, int elementIdx) {
-        this.name = name;
-        this.elementIdx = elementIdx;
-    }
-
     public void setFormElement(FormElement formElement) {
         this.formElement = formElement;
 

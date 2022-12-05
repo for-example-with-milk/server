@@ -53,7 +53,7 @@ public class ServiceManager {
             return result;
         }
     }
-    public List<Service> findlistByProviderId(String id){
+    public List<Service> findListByProviderId(String id){
         Optional<List<Service>> serviceList = serviceRepository.findListByProviderId(id);
         List<Service> result = serviceList.orElse(null);
 
@@ -65,7 +65,7 @@ public class ServiceManager {
         }
     }
 
-    public List<SubService> findSubServicelistByServiceid(Long serviceId){
+    public List<SubService> findSubServiceListByServiceid(Long serviceId){
         List<SubService> result = serviceRepository
                 .findSubServiceListByServiceId(serviceId)
                 .orElse(null);
@@ -78,7 +78,7 @@ public class ServiceManager {
     }
 
 
-    public List<Service> findlistByUserId(String id){
+    public List<Service> findListByUserId(String id){
         Optional<List<Service>> serviceList = serviceRepository.findListByUserId(id);
         List<Service> result = serviceList.orElse(null);
         if ( result == null){

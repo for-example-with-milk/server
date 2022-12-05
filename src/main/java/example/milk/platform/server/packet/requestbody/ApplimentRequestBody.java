@@ -1,6 +1,5 @@
 package example.milk.platform.server.packet.requestbody;
 
-import example.milk.platform.server.account.User;
 import example.milk.platform.server.userservice.AppliedElement;
 import example.milk.platform.server.userservice.Appliment;
 import example.milk.platform.server.userservice.Checkedbox;

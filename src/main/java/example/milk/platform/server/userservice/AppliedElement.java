@@ -48,24 +48,6 @@ public class AppliedElement {
     @OneToMany(mappedBy = "appliedElement")
     private List<Checkedbox> checkedboxList;
 
-    protected AppliedElement() {}
-
-    // product type
-    public AppliedElement(int idx, ElementType elementType, String prodName, int prodPrice, int prodNum) {
-        this.idx = idx;
-        this.elementType = elementType;
-        this.prodName = prodName;
-        this.prodPrice = prodPrice;
-        this.prodNum = prodNum;
-    }
-
-    // text type
-    public AppliedElement(int idx, ElementType elementType, String text) {
-        this.idx = idx;
-        this.elementType = elementType;
-        this.text = text;
-    }
-
     public void setAppliment(Appliment appliment) {
         this.appliment = appliment;
         appliment.setAppliedElement(this);
