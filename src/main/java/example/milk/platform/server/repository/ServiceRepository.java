@@ -53,8 +53,8 @@ public class ServiceRepository {
     }
 
     public Optional<List<Service>> findListByUserId(String userId){
-        List<Service> serviceList;
-        serviceList = em.createQuery("select m from Service m where m.userId = :userId", Service.class)
+        List<Service>
+        serviceList = em.createQuery( "SELECT us.service FROM UserService us WHERE us.id=(SELECT a.userServiceId FROM Appliment a WHERE a.userServiceId = (SELECT u.service.id FROM UserService u WHERE u.user.id = :userId))", Service.class)
                 .setParameter("userId",userId)
                 .getResultList();
         return Optional.ofNullable(serviceList);

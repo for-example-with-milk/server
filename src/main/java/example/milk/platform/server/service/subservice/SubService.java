@@ -9,7 +9,7 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "subservice")
+@Table(name = "sub_service")
 @Getter
 public class SubService {
     @Id
