@@ -1,5 +1,6 @@
 package example.milk.platform.server.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import example.milk.platform.server.account.User;
 import example.milk.platform.server.packet.requestbody.ApplimentRequestBody;
@@ -9,6 +10,7 @@ import example.milk.platform.server.packet.responsebody.CreateSubServiceResponse
 import example.milk.platform.server.repository.ServiceRepository;
 import example.milk.platform.server.service.subservice.*;
 import example.milk.platform.server.userservice.AppliedElement;
+import example.milk.platform.server.userservice.Appliment;
 import example.milk.platform.server.userservice.UserService;
 import lombok.*;
 
@@ -45,8 +47,8 @@ public class Service {
     @JsonManagedReference
     private List<SubService> subServiceList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "service")
-    @JsonManagedReference
     private List<UserService> userServiceList = new ArrayList<>();
 
     protected Service() {
@@ -109,12 +111,22 @@ public class Service {
                 List<AppliedElement> appliedElementList = request.getAppliedElementList();
                 for (AppliedElement appliedElement : appliedElementList) {
                     if (appliedElement.getIdx() == index) {
-                        return 0;
+                        break;
                     }
                 }
+                return 2;
             }
         }
 
-        return 2;
+        return 0;
+    }
+
+    public boolean isDuplicate(ServiceRepository serviceRepository, Service service, User user) {
+        List<Appliment> applimentList = serviceRepository.findAppliment(service, user);
+
+        if (applimentList == null)
+            return false;
+
+        return true;
     }
 }

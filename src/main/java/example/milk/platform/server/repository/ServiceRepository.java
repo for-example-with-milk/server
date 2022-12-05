@@ -227,5 +227,22 @@ public class ServiceRepository {
         }
     }
 
+    public List<Appliment> findAppliment(Service service, User user) {
+        Long userServiceId;
+        try {
+            TypedQuery<Long> query1 = em.createQuery("select us.id from UserService as us where us.user=:user and us.service=:serv", Long.class);
+            query1.setParameter("user", user);
+            query1.setParameter("serv", service);
+            userServiceId = query1.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
 
+        TypedQuery<Appliment> query2 = em.createQuery("select app from Appliment as app where app.userServiceId=:usId", Appliment.class);
+        query2.setParameter("usId", userServiceId);
+        List<Appliment> applimentList = query2.getResultList();
+
+        return applimentList;
+
+    }
 }

@@ -113,6 +113,13 @@ public class ServiceController {
         User user = accountManager.getUser(request.getToken());
         Service service = serviceManager.findServiceBySubServiceId(request.getSubServiceId());
 
+        if (service == null) {
+            return new ApplimentResponseBody(1, "서비스 혹은 하위서비스가 없습니다.");
+        }
+        if (user == null) {
+            return new ApplimentResponseBody(2, "이용자가 없습니다.");
+        }
+
         int isValidate = service.isValidate(serviceManager.getServiceRepository(), request);
         if (isValidate != 0) {
             if (isValidate == 1)
@@ -121,12 +128,11 @@ public class ServiceController {
                 return new ApplimentResponseBody(4, "유효하지 않은 신청입니다.");
         }
 
-        if (service == null) {
-            return new ApplimentResponseBody(1, "서비스 혹은 하위서비스가 없습니다.");
+        boolean isDuplicate = service.isDuplicate(serviceManager.getServiceRepository(), service, user);
+        if (isDuplicate != false) {
+            return new ApplimentResponseBody(5, "이미 신청한 서비스입니다.");
         }
-        if (user == null) {
-            return new ApplimentResponseBody(2, "이용자가 없습니다.");
-        }
+
         return service.saveApply(request, serviceManager.getServiceRepository(), user);
     }
 }
