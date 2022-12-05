@@ -168,6 +168,13 @@ public class ServiceRepository {
                 appliedElement.setAppliment(appliment);
                 em.persist(appliedElement);
             }
+
+            userService.setService(service);
+            em.persist(userService);
+
+            service.setUserService(userService);
+            em.persist(service);
+
             appliment.setUserService(userService);
             em.persist(appliment);
 
@@ -175,12 +182,6 @@ public class ServiceRepository {
                 payment.setAppliment(appliment);
                 em.persist(payment);
             }
-
-            userService.setService(service);
-            em.persist(userService);
-
-            service.setUserService(userService);
-            em.persist(service);
 
         } catch (Exception e) {
             return false;

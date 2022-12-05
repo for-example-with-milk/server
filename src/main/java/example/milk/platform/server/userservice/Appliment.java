@@ -48,6 +48,7 @@ public class Appliment {
 
     public void setUserService(UserService userService) {
         this.userServiceId = userService.getId();
+        userService.setAppliment(this);
 
     }
 }
