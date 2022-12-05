@@ -65,7 +65,7 @@ public class ServiceManager {
         }
     }
 
-    public List<SubService> findSubServiceListByServiceid(Long serviceId){
+    public List<SubService> findSubServiceListByServiceId(Long serviceId){
         List<SubService> result = serviceRepository
                 .findSubServiceListByServiceId(serviceId)
                 .orElse(null);

@@ -82,7 +82,7 @@ public class ServiceController {
         GetSubServiceListResponsebody getSubServiceListResponsebody;
 
         Service service = serviceManager.findServiceById(request.getId());
-        List<SubService> serviceList = serviceManager.findSubServiceListByServiceid(request.getId());
+        List<SubService> serviceList = serviceManager.findSubServiceListByServiceId(request.getId());
 
         if(serviceList == null && service == null){
             getSubServiceListResponsebody = new GetSubServiceListResponsebody(service,1,"서비스와 서브서비스 리스트가 존재하지 않습니다.", null);
