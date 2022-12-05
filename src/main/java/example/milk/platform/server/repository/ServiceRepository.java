@@ -98,6 +98,21 @@ public class ServiceRepository {
         return Optional.ofNullable(subServiceList);
     }
 
+    public List<FormElement> findFormElementList(Long subServiceId) {
+        TypedQuery<SubService> query1 = em.createQuery("SELECT s FROM SubService as s WHERE s.id=:parm", SubService.class);
+        query1.setParameter("parm", subServiceId);
+        List<SubService> subServiceList = query1.getResultList();
+        if (subServiceList == null)
+            return null;
+
+        for (SubService subService : subServiceList) {
+            if (subService.getId().equals(subServiceId))
+                return subService.getForm().getFormElementList();
+        }
+
+        return null;
+    }
+
     public boolean saveSubService(Service service, CreateSubServiceRequestBody request) {
         try {
             SubService subService = request.getSubService();
@@ -211,5 +226,6 @@ public class ServiceRepository {
             return null;
         }
     }
+
 
 }

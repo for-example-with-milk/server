@@ -8,6 +8,7 @@ import example.milk.platform.server.packet.responsebody.ApplimentResponseBody;
 import example.milk.platform.server.packet.responsebody.CreateSubServiceResponseBody;
 import example.milk.platform.server.repository.ServiceRepository;
 import example.milk.platform.server.service.subservice.*;
+import example.milk.platform.server.userservice.AppliedElement;
 import example.milk.platform.server.userservice.UserService;
 import lombok.*;
 
@@ -93,5 +94,27 @@ public class Service {
 
     public UserService getUserServiceList(ServiceRepository serviceRepository, String userId) {
         return serviceRepository.findUserServiceByUserId(this, userId);
+    }
+
+    public int isValidate(ServiceRepository serviceRepository, ApplimentRequestBody request) {
+        List<FormElement> formElementList = serviceRepository.findFormElementList(request.getSubServiceId());
+
+        if (formElementList == null)
+            return 1;
+
+        for (FormElement formElement : formElementList) {
+            if (formElement.getIsRequireResponse() == 1) {
+                int index = formElement.getIdx();
+
+                List<AppliedElement> appliedElementList = request.getAppliedElementList();
+                for (AppliedElement appliedElement : appliedElementList) {
+                    if (appliedElement.getIdx() == index) {
+                        return 0;
+                    }
+                }
+            }
+        }
+
+        return 2;
     }
 }

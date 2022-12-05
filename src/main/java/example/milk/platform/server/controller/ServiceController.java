@@ -112,6 +112,15 @@ public class ServiceController {
     public ApplimentResponseBody apply(@RequestBody ApplimentRequestBody request) {
         User user = accountManager.getUser(request.getToken());
         Service service = serviceManager.findServiceBySubServiceId(request.getSubServiceId());
+
+        int isValidate = service.isValidate(serviceManager.getServiceRepository(), request);
+        if (isValidate != 0) {
+            if (isValidate == 1)
+                return new ApplimentResponseBody(3, "서비스 혹은 하위서비스, 신청양식이 없습니다.");
+            else if (isValidate == 2)
+                return new ApplimentResponseBody(4, "유효하지 않은 신청입니다.");
+        }
+
         if (service == null) {
             return new ApplimentResponseBody(1, "서비스 혹은 하위서비스가 없습니다.");
         }
