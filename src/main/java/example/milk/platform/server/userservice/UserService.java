@@ -1,6 +1,7 @@
 package example.milk.platform.server.userservice;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import example.milk.platform.server.account.User;
 import example.milk.platform.server.service.Service;
 import example.milk.platform.server.service.ServiceManager;
@@ -23,7 +24,7 @@ public class UserService {
     @JoinColumn(name = "service_id")
     private Service service;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
