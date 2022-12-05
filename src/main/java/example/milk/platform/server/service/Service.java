@@ -1,5 +1,6 @@
 package example.milk.platform.server.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import example.milk.platform.server.account.User;
 import example.milk.platform.server.packet.requestbody.ApplimentRequestBody;
@@ -46,7 +47,7 @@ public class Service {
     private List<SubService> subServiceList = new ArrayList<>();
 
     @OneToMany(mappedBy = "service")
-    @JsonManagedReference
+    @JsonIgnore
     private List<UserService> userServiceList = new ArrayList<>();
 
     protected Service() {
