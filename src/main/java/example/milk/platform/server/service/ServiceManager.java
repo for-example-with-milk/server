@@ -30,7 +30,6 @@ public class ServiceManager {
         catch (Exception e){
             return new ServiceCreateResponseBody(2 ,"서비스 생성을 실패했습니다.");
         }
-        System.out.println("생성 성공");
         return new ServiceCreateResponseBody(0,"서비스 생성을 성공했습니다.");
     }
 

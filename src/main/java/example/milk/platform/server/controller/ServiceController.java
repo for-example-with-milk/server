@@ -24,8 +24,6 @@ public class ServiceController {
     @PostMapping("/serv/create")
     public ServiceCreateResponseBody createService(@RequestBody ServiceCreateRequestBody request) {
         ServiceCreateResponseBody serviceCreateResponseBody = serviceManager.createService(request);
-        System.out.println(serviceCreateResponseBody.getMessage());
-        System.out.println(serviceCreateResponseBody.getResult());
         return serviceCreateResponseBody;
     }
 
